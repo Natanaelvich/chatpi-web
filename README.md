@@ -1,4 +1,4 @@
-<h1 align='center'> GOBARBER </h1>
+<h1 align='center'> PI </h1>
 
 ### College integrator project web in Nextjs ⚡️
 
