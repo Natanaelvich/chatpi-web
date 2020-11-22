@@ -1,15 +1,10 @@
-<h1 align='center'> GOBARBER </h1>
+<h1 align='center'> PI </h1>
 
-### Welcome to the GoBarber Web project ⚛🚀🔥
+### College integrator project web in Nextjs ⚡️
 
 ---
 
 ## ScreenShots
-
-<p align='center'>
-  <img src='https://user-images.githubusercontent.com/52014318/92190010-6d712e00-ee36-11ea-86df-b2348889e2bf.png' width='700' />
-  <img src='https://user-images.githubusercontent.com/52014318/92189999-6813e380-ee36-11ea-9468-c8433a669bc7.png' width='700' />
-</ p>
 
 
 ## Install
