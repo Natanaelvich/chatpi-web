@@ -1,4 +1,6 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useRouter } from 'next/router';
+import io from 'socket.io-client';
 import Image from 'next/image';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -19,6 +21,7 @@ import { useToast } from '../hooks/modules/ToastContext';
 
 export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
+  const router = useRouter();
 
   const { signIn } = useAuth();
   const { addToast } = useToast();
@@ -26,8 +29,6 @@ export default function SingnIn() {
   const hanleSingnIn = useCallback(
     async (data: { email: string; password: string }) => {
       try {
-        console.log(process.env.NEXT_PUBLIC_API_KEY);
-        console.log(process.env);
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           email: Yup.string()
@@ -48,6 +49,7 @@ export default function SingnIn() {
           type: 'success',
           title: 'logado com sucesso',
         });
+        router.push('chat');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -64,7 +66,7 @@ export default function SingnIn() {
         });
       }
     },
-    [signIn, addToast],
+    [signIn, addToast, router],
   );
 
   return (
