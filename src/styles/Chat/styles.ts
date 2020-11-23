@@ -10,9 +10,13 @@ export const HeaderChat = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  p {
+    margin-right: 20px;
+  }
+
   img {
     border-radius: 20px;
-    margin-left: 20px;
   }
 `;
 export const Chat = styled.div`
