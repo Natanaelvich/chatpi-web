@@ -50,7 +50,7 @@ export default function ChatHome() {
   }, [addToast]);
 
   const socket = useMemo(() => {
-    return io(process.env.NEXT_PUBLIC_API_KEY, {
+    return io(process.env.NEXT_PUBLIC_API_URL, {
       query: { user: user?.id },
     });
   }, [user]);
