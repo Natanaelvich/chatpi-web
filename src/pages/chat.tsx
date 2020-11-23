@@ -1,8 +1,15 @@
 import ChatList from '@/components/ChatList';
 import { useAuth } from '@/hooks/modules/AuthContext';
 import { useToast } from '@/hooks/modules/ToastContext';
+import { AiOutlineSend } from 'react-icons/ai';
 import api from '@/services/api';
-import { Chat, Messages, InputMessage, HeaderChat } from '@/styles/Chat/styles';
+import {
+  Chat,
+  Messages,
+  InputMessage,
+  HeaderChat,
+  Message,
+} from '@/styles/Chat/styles';
 import Image from 'next/image';
 import React, {
   FormEvent,
@@ -23,6 +30,7 @@ export default function ChatHome() {
   const [message, setMessage] = useState('');
   const [inputFocus, setInputFocus] = useState(false);
   const [chatActivity, setChatActivity] = useState(null);
+  const [usersLoggeds, setUsersLoggeds] = useState(null);
 
   useEffect(() => {
     async function getUsers() {
@@ -50,17 +58,30 @@ export default function ChatHome() {
 
   useEffect(() => {
     socket.on('message', messageSocket => {
-      setMessages(oldMessages => [...oldMessages, messageSocket]);
+      const messageParse = JSON.parse(messageSocket);
+      setMessages(oldMessages => [...oldMessages, messageParse]);
+    });
+    socket.on('usersLoggeds', usersLoggedsSocket => {
+      setUsersLoggeds(JSON.parse(usersLoggedsSocket));
     });
   }, [socket]);
 
   const sendMessage = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      socket.emit('message', message);
-      setMessage('');
+      if (chatActivity) {
+        socket.emit(
+          'message',
+          JSON.stringify({ user: user?.id, toUser: chatActivity.id, message }),
+        );
+        setMessages(oldMessages => [
+          ...oldMessages,
+          { user: user?.id, toUser: chatActivity.id, message },
+        ]);
+        setMessage('');
+      }
     },
-    [socket, message],
+    [socket, message, chatActivity, user],
   );
 
   return (
@@ -68,10 +89,11 @@ export default function ChatHome() {
       <ChatList
         chatActivity={chatActivity}
         setChatActivity={setChatActivity}
-        users={users}
+        users={users.filter(u => u.id !== user.id)}
+        usersLoggeds={usersLoggeds}
       />
-      <Chat>
-        {chatActivity && (
+      {chatActivity && (
+        <Chat>
           <HeaderChat>
             <p>{chatActivity.name}</p>
             {chatActivity.avatar_url && (
@@ -83,24 +105,33 @@ export default function ChatHome() {
               />
             )}
           </HeaderChat>
-        )}
-        <Messages>
-          {messages.map(m => (
-            <p>{m}</p>
-          ))}
-        </Messages>
-        <form onSubmit={sendMessage}>
-          <InputMessage focused={inputFocus}>
-            <input
-              onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
-              onBlur={() => setInputFocus(false)}
-              value={message}
-              onChange={text => setMessage(text.target.value)}
-            />
-            <button type="submit">Enviar</button>
-          </InputMessage>
-        </form>
-      </Chat>
+
+          <Messages>
+            {messages
+              .filter(
+                m =>
+                  (m.toUser === chatActivity.id && m.user === user.id) ||
+                  (m.toUser === user.id && m.user === chatActivity.id),
+              )
+              .map(m => (
+                <Message owner={user.id === m?.user}>{m.message}</Message>
+              ))}
+          </Messages>
+          <form onSubmit={sendMessage}>
+            <InputMessage focused={inputFocus}>
+              <input
+                onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
+                onBlur={() => setInputFocus(false)}
+                value={message}
+                onChange={text => setMessage(text.target.value)}
+              />
+              <button type="submit">
+                <AiOutlineSend size={28} color="#fff" />
+              </button>
+            </InputMessage>
+          </form>
+        </Chat>
+      )}
     </Container>
   );
 }

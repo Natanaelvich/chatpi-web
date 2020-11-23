@@ -3,6 +3,9 @@ import styled, { css } from 'styled-components';
 interface ContainerProps {
   focused: boolean;
 }
+interface MessageProps {
+  owner: boolean;
+}
 export const HeaderChat = styled.div`
   background: #232129;
   height: 50px;
@@ -33,6 +36,10 @@ export const Messages = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   flex: 1;
+`;
+export const Message = styled.p<MessageProps>`
+  align-self: ${props => (props.owner ? 'flex-end' : 'flex-start')};
+  color: ${props => (props.owner ? '#ff9000' : '#f4ede8')};
 `;
 export const InputMessage = styled.div<ContainerProps>`
   background: #232129;

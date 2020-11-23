@@ -4,19 +4,25 @@ import * as Yup from 'yup';
 import { FiMail, FiUser, FiArrowLeft, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import { Link, useHistory } from 'react-router-dom';
-import { Container, Content, Background, AnimationContainer } from './styles';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Image from 'next/image';
+import {
+  Container,
+  Content,
+  Background,
+  AnimationContainer,
+} from '../styles/SingnUp/styles';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import logoImg from '../../assets/Logo.svg';
-import getValidationErros from '../../utils/getValidationErros';
-import api from '../../services/api';
-import { useToast } from '../../hooks/modules/ToastContext';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import getValidationErros from '../utils/getValidationErros';
+import api from '../services/api';
+import { useToast } from '../hooks/modules/ToastContext';
 
 const SingnUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const history = useHistory();
+  const router = useRouter();
   const { addToast } = useToast();
 
   const hanleSingnUp = useCallback(
@@ -47,7 +53,7 @@ const SingnUp: React.FC = () => {
           title: 'Cadastrado com sucesso',
         });
 
-        history.push('/');
+        router.push('/');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -63,7 +69,7 @@ const SingnUp: React.FC = () => {
         });
       }
     },
-    [addToast, history],
+    [addToast, router],
   );
 
   return (
@@ -71,8 +77,6 @@ const SingnUp: React.FC = () => {
       <Background />
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="Gobarber" />
-
           <Form ref={formRef} onSubmit={hanleSingnUp}>
             <h1>Faça seu cadatro</h1>
 
@@ -87,9 +91,11 @@ const SingnUp: React.FC = () => {
 
             <Button type="submit">Cadatrar</Button>
           </Form>
-          <Link to="/">
-            <FiArrowLeft />
-            Voltar para logon
+          <Link href="/">
+            <a>
+              <FiArrowLeft />
+              Voltar para logon
+            </a>
           </Link>
         </AnimationContainer>
       </Content>

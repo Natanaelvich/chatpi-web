@@ -73,8 +73,6 @@ export default function SingnIn() {
     <Container>
       <Content>
         <AnimationContainer>
-          <Image src="/Logo.png" alt="Gobarber" width="230" height="134" />
-
           <Form ref={formRef} onSubmit={hanleSingnIn}>
             <h1>Faça seu logon</h1>
 
@@ -91,7 +89,7 @@ export default function SingnIn() {
               <a>Esqueci minha senha</a>
             </Link>
           </Form>
-          <Link href="signup">
+          <Link href="singnup">
             <a>
               <FiLogIn />
               Criar conta
