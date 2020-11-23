@@ -31,6 +31,5 @@ export const Messages = styled.div`
   width: 600px;
   height: 400px;
   margin: 20px 0;
-  border: 1px solid #ddd;
   padding: 20px;
 `;

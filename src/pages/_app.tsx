@@ -3,12 +3,10 @@ import Globalstyles from '@/styles/Globalstyles';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <AppProvider>
       <Globalstyles />
-      <AppProvider>
-        <Component {...pageProps} />
-      </AppProvider>
-    </>
+      <Component {...pageProps} />
+    </AppProvider>
   );
 }
 
