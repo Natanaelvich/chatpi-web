@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdAdd } from 'react-icons/md';
 import {
   Container,
@@ -8,8 +8,13 @@ import {
   TitleChats,
 } from './styles';
 
+interface User {
+  id: string;
+  name: string;
+}
+
 interface ChatProps {
-  users: [];
+  users: User[];
   chatActivity: Record<string, any>;
   setChatActivity: Function;
   usersLoggeds: Record<string, any>;

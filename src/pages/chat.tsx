@@ -10,7 +10,6 @@ import {
   HeaderChat,
   Message,
 } from '@/styles/Chat/styles';
-import Image from 'next/image';
 import React, {
   FormEvent,
   useCallback,

@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
-import io from 'socket.io-client';
-import Image from 'next/image';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
