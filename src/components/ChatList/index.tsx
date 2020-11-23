@@ -10,10 +10,14 @@ import {
 
 interface ChatProps {
   users: [];
+  chatActivity: Record<string, any>;
+  setChatActivity: Function;
 }
-const ChatList: React.FC<ChatProps> = ({ users }) => {
-  const [chatActivity, setChatActivity] = useState(null);
-
+const ChatList: React.FC<ChatProps> = ({
+  users,
+  chatActivity,
+  setChatActivity,
+}) => {
   return (
     <Container>
       <ChatListContent>

@@ -1,4 +1,7 @@
 module.exports = {
+  images: {
+    domains: ['assets.vercel.com','localhost'],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -7,9 +10,6 @@ module.exports = {
       },
       use: ['@svgr/webpack'],
     });
-    config.node = {
-      fs: 'empty'
-    }
 
     return config;
   },
