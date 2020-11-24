@@ -15,6 +15,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import io from 'socket.io-client';
@@ -30,7 +31,10 @@ export default function ChatHome() {
   const [inputFocus, setInputFocus] = useState(false);
   const [chatActivity, setChatActivity] = useState(null);
   const [usersLoggeds, setUsersLoggeds] = useState(null);
+  const [typing, setTyping] = useState(null);
 
+  // 'https://api.pi.mundotech.dev'
+  // http://localhost:3335
   useEffect(() => {
     async function getUsers() {
       try {
@@ -63,6 +67,10 @@ export default function ChatHome() {
     socket.on('usersLoggeds', usersLoggedsSocket => {
       setUsersLoggeds(JSON.parse(usersLoggedsSocket));
     });
+    socket.on('typing', typingSocket => {
+      console.log(typingSocket);
+      setTyping(typingSocket);
+    });
   }, [socket]);
 
   const sendMessage = useCallback(
@@ -83,9 +91,16 @@ export default function ChatHome() {
     [socket, message, chatActivity, user],
   );
 
+  function handleKeyPress(e: KeyboardEvent) {
+    console.log(e);
+    if (e.which !== 13) {
+      socket.emit('typing', { user: user.id, typing: true });
+    }
+  }
   return (
     <Container>
       <ChatList
+        typing={typing}
         chatActivity={chatActivity}
         setChatActivity={setChatActivity}
         users={users.filter(u => u.id !== user.id)}
@@ -115,12 +130,17 @@ export default function ChatHome() {
               .map(m => (
                 <Message owner={user.id === m?.user}>{m.message}</Message>
               ))}
+            {typing && typing[chatActivity.id] && <p>Digitando...</p>}
           </Messages>
           <form onSubmit={sendMessage}>
             <InputMessage focused={inputFocus}>
               <input
+                onKeyPress={handleKeyPress}
                 onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
-                onBlur={() => setInputFocus(false)}
+                onBlur={() => {
+                  setInputFocus(false);
+                  socket.emit('typingBlur', { user: user.id, typing: false });
+                }}
                 value={message}
                 onChange={text => setMessage(text.target.value)}
               />

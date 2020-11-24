@@ -44,6 +44,11 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <title>PI | Unifacema</title>
+          <link
+            rel="shortcut icon"
+            href="/public/favicon.ico"
+            type="image/x-icon"
+          />
         </Head>
 
         <body>

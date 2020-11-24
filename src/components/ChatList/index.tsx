@@ -18,12 +18,14 @@ interface ChatProps {
   chatActivity: Record<string, any>;
   setChatActivity: Function;
   usersLoggeds: Record<string, any>;
+  typing: Record<string, any>;
 }
 const ChatList: React.FC<ChatProps> = ({
   users,
   chatActivity,
   setChatActivity,
   usersLoggeds,
+  typing,
 }) => {
   return (
     <Container>
@@ -37,6 +39,7 @@ const ChatList: React.FC<ChatProps> = ({
           >
             <h1>{u.name}</h1>
             {usersLoggeds && usersLoggeds[u?.id] && <p>Online</p>}
+            {typing && typing[u?.id] && <p>Digitando...</p>}
           </Chat>
         ))}
         <NewChat onClick={() => console.log('teste')}>
