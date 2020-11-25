@@ -43,12 +43,8 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap"
             rel="stylesheet"
           />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <title>PI | Unifacema</title>
-          <link
-            rel="shortcut icon"
-            href="/public/favicon.ico"
-            type="image/x-icon"
-          />
         </Head>
 
         <body>

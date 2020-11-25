@@ -12,10 +12,10 @@ import {
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
+  KeyboardEvent,
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import io from 'socket.io-client';
@@ -68,7 +68,6 @@ export default function ChatHome() {
       setUsersLoggeds(JSON.parse(usersLoggedsSocket));
     });
     socket.on('typing', typingSocket => {
-      console.log(typingSocket);
       setTyping(typingSocket);
     });
   }, [socket]);
@@ -91,8 +90,7 @@ export default function ChatHome() {
     [socket, message, chatActivity, user],
   );
 
-  function handleKeyPress(e: KeyboardEvent) {
-    console.log(e);
+  function handleKeyPress(e: KeyboardEvent<HTMLInputElement>): void {
     if (e.which !== 13) {
       socket.emit('typing', { user: user.id, typing: true });
     }
