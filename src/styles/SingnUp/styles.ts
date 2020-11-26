@@ -34,7 +34,9 @@ export const AnimationContainer = styled.div`
     text-align: center;
 
     h1 {
+      font-size: 41px;
       margin-bottom: 24px;
+      font-family: 'Redressed', serif;
     }
 
     a {
@@ -80,6 +82,6 @@ export const Content = styled.div`
 
 export const Background = styled.div`
   flex: 1;
-  background: url('/bg-signin.png') no-repeat center;
+  background: url('/Logo.png') no-repeat center;
   background-size: cover;
 `;

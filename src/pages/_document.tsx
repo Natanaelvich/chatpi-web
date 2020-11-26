@@ -1,3 +1,4 @@
+import Seo from '@/components/Seo';
 import Document, {
   DocumentContext,
   Head,
@@ -38,9 +39,15 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt">
         <Head>
+          <Seo />
           <meta charSet="utf-8" />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap"
+            rel="stylesheet"
+          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Redressed&display=swap"
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />

@@ -42,9 +42,6 @@ const ChatList: React.FC<ChatProps> = ({
             {typing && typing[u?.id] && <p>Digitando...</p>}
           </Chat>
         ))}
-        <NewChat onClick={() => console.log('teste')}>
-          <MdAdd size={28} color="#fff" />
-        </NewChat>
       </ChatListContent>
     </Container>
   );

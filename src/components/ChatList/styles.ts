@@ -32,7 +32,7 @@ export const Chat = styled.button<ChatProps>`
   border: 0;
   background: transparent;
   margin: 0 0 18px;
-  background: #7159c1;
+  background: #de595c;
   padding: 5px 10px;
   border-radius: 12px;
   color: #eee;
@@ -66,6 +66,6 @@ export const NewChat = styled.button`
   width: 150px;
   &:hover {
     ${boxShadow}
-    background: #7159c1;
+    background: #DE595C;
   }
 `;

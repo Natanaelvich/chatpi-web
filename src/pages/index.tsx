@@ -5,6 +5,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import Link from 'next/link';
+import Seo from '@/components/Seo';
 import {
   Container,
   Content,
@@ -72,7 +73,7 @@ export default function SingnIn() {
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
-            <h1>Faça seu logon</h1>
+            <h1>Chat PI</h1>
 
             <Input placeholder="E-mail" icon={FiMail} name="email" />
             <Input

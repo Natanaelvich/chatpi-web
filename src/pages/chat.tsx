@@ -9,6 +9,7 @@ import {
   InputMessage,
   HeaderChat,
   Message,
+  MessageBox,
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
@@ -20,6 +21,7 @@ import React, {
 } from 'react';
 import io from 'socket.io-client';
 import { Container } from '../styles/SingnIn/styles';
+import constants from '../constants';
 
 export default function ChatHome() {
   const { user } = useAuth();
@@ -33,8 +35,6 @@ export default function ChatHome() {
   const [usersLoggeds, setUsersLoggeds] = useState(null);
   const [typing, setTyping] = useState(null);
 
-  // 'https://api.pi.mundotech.dev'
-  // http://localhost:3335
   useEffect(() => {
     async function getUsers() {
       try {
@@ -54,7 +54,7 @@ export default function ChatHome() {
   }, [addToast]);
 
   const socket = useMemo(() => {
-    return io('https://api.pi.mundotech.dev', {
+    return io(constants.API_URL, {
       query: { user: user?.id },
     });
   }, [user]);
@@ -78,11 +78,16 @@ export default function ChatHome() {
       if (chatActivity) {
         socket.emit(
           'message',
-          JSON.stringify({ user: user?.id, toUser: chatActivity.id, message }),
+          JSON.stringify({
+            user: user?.id,
+            toUser: chatActivity.id,
+            message,
+            readed: false,
+          }),
         );
         setMessages(oldMessages => [
           ...oldMessages,
-          { user: user?.id, toUser: chatActivity.id, message },
+          { user: user?.id, toUser: chatActivity.id, message, readed: false },
         ]);
         setMessage('');
       }
@@ -108,14 +113,12 @@ export default function ChatHome() {
         <Chat>
           <HeaderChat>
             <p>{chatActivity.name}</p>
-            {chatActivity.avatar_url && (
-              <img
-                src={chatActivity.avatar_url}
-                alt={chatActivity.name}
-                width="40"
-                height="40"
-              />
-            )}
+            <img
+              src={`${constants.API_URL}/myAvatars/${chatActivity.id}`}
+              alt={chatActivity.name}
+              width="40"
+              height="40"
+            />
           </HeaderChat>
 
           <Messages>

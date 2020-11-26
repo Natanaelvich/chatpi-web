@@ -31,15 +31,17 @@ export const Chat = styled.div`
   justify-content: flex-end;
 `;
 export const Messages = styled.div`
+  flex: 1;
   padding: 20px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  flex: 1;
 `;
 export const Message = styled.p<MessageProps>`
+  max-width: 50vw;
+  overflow-wrap: break-word;
   align-self: ${props => (props.owner ? 'flex-end' : 'flex-start')};
-  color: ${props => (props.owner ? '#ff9000' : '#f4ede8')};
+  color: ${props => (props.owner ? '#DE595C' : '#f4ede8')};
 `;
 export const InputMessage = styled.div<ContainerProps>`
   background: #232129;
@@ -61,8 +63,8 @@ export const InputMessage = styled.div<ContainerProps>`
   ${props =>
     props.focused &&
     css`
-      color: #ff9000;
-      border-color: #ff9000;
+      color: #343152;
+      border-color: #343152;
     `}
 
   input {

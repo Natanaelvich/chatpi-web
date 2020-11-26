@@ -34,7 +34,9 @@ export const AnimationContainer = styled.div`
     text-align: center;
 
     h1 {
+      font-size: 41px;
       margin-bottom: 24px;
+      font-family: 'Redressed', serif;
     }
 
     a {
@@ -51,14 +53,14 @@ export const AnimationContainer = styled.div`
   }
 
   > a {
-    color: #ff9000;
+    color: #de595c;
     display: block;
     margin-top: 24px;
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.2, '#ff9000')};
+      color: ${shade(0.2, '#DE595C')};
     }
 
     svg {
@@ -80,6 +82,6 @@ export const Content = styled.div`
 
 export const Background = styled.div`
   flex: 1;
-  background: url('/bg-signin.png') no-repeat center;
+  background: url('/Logo.png') no-repeat center;
   background-size: cover;
 `;

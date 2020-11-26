@@ -14,7 +14,7 @@ export const Container = styled.div`
     > a {
       font-size: 20px;
       font-weight: bold;
-      color: #7159c1;
+      color: #de595c;
       display: block;
       margin-right: 12px;
       border: 1px solid #fff;
@@ -26,7 +26,7 @@ export const Container = styled.div`
     label {
       font-size: 20px;
       font-weight: bold;
-      color: #7159c1;
+      color: #de595c;
       display: block;
     }
     input {
@@ -37,14 +37,14 @@ export const Container = styled.div`
       margin-left: 12px;
       padding: 12px 20px;
       border-radius: 6px;
-      background: #7159c1;
+      background: #de595c;
       color: #fff;
     }
   }
 `;
 export const Title = styled.h1`
   font-size: 45px;
-  color: #7159c1;
+  color: #de595c;
   font-weight: bold;
 `;
 export const List = styled.ul`
