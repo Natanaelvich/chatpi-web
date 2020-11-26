@@ -83,5 +83,5 @@ export const Content = styled.div`
 export const Background = styled.div`
   flex: 1;
   background: url('/Logo.png') no-repeat center;
-  background-size: cover;
+  background-size: contain;
 `;
