@@ -9,7 +9,6 @@ import {
   InputMessage,
   HeaderChat,
   Message,
-  MessageBox,
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
@@ -122,16 +121,17 @@ export default function ChatHome() {
           </HeaderChat>
 
           <Messages>
+            {typing && typing[chatActivity.id] && <p>Digitando...</p>}
             {messages
               .filter(
                 m =>
                   (m.toUser === chatActivity.id && m.user === user.id) ||
                   (m.toUser === user.id && m.user === chatActivity.id),
               )
+              .reverse()
               .map(m => (
                 <Message owner={user.id === m?.user}>{m.message}</Message>
               ))}
-            {typing && typing[chatActivity.id] && <p>Digitando...</p>}
           </Messages>
           <form onSubmit={sendMessage}>
             <InputMessage focused={inputFocus}>

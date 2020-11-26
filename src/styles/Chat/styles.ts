@@ -36,12 +36,23 @@ export const Messages = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
+
+  transform: rotate(180deg);
+  direction: rtl;
+
+  p {
+    transform: rotate(180deg);
+    direction: ltr;
+  }
 `;
 export const Message = styled.p<MessageProps>`
   max-width: 50vw;
   overflow-wrap: break-word;
   align-self: ${props => (props.owner ? 'flex-end' : 'flex-start')};
   color: ${props => (props.owner ? '#DE595C' : '#f4ede8')};
+
+  transform: rotate(180deg);
+  direction: ltr;
 `;
 export const InputMessage = styled.div<ContainerProps>`
   background: #232129;
