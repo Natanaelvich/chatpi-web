@@ -14,7 +14,7 @@ const Seo: React.FC = () => {
       <meta property="og:title" content="Chat PI" />
       <meta
         property="og:description"
-        content="Projeto integradro 4º periodo Unifacema"
+        content="Projeto integrador ADS 4º período Unifacema 2020."
       />
       <meta property="og:locale" content="pt_BR" />
       <meta property="og:type" content="website" />
