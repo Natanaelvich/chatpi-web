@@ -80,6 +80,12 @@ export const Chat = styled.button<ChatProps>`
 
   small {
     color: #89748a;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 `;
 export const NewChat = styled.button`
