@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -23,12 +23,15 @@ export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
   const router = useRouter();
 
+  const [loading, setLoading] = useState(0);
+
   const { signIn } = useAuth();
   const { addToast } = useToast();
 
   const hanleSingnIn = useCallback(
     async (data: { email: string; password: string }) => {
       try {
+        setLoading(1);
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           email: Yup.string()
@@ -50,6 +53,7 @@ export default function SingnIn() {
           title: 'logado com sucesso',
         });
         router.push('chat');
+        setLoading(0);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -87,7 +91,9 @@ export default function SingnIn() {
               name="password"
             />
 
-            <Button type="submit">Entrar</Button>
+            <Button loading={loading} type="submit">
+              Entrar
+            </Button>
             <Link href="forgot_password">
               <a>Esqueci minha senha</a>
             </Link>

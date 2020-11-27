@@ -20,7 +20,7 @@ import React, {
 } from 'react';
 import io from 'socket.io-client';
 import { Container } from '../styles/SingnIn/styles';
-import constants from '../constants';
+import { urls } from '../constants';
 
 export default function ChatHome() {
   const { user } = useAuth();
@@ -53,7 +53,7 @@ export default function ChatHome() {
   }, [addToast]);
 
   const socket = useMemo(() => {
-    return io(constants.API_URL, {
+    return io(urls[process.env.NODE_ENV], {
       query: { user: user?.id },
     });
   }, [user]);
@@ -94,6 +94,21 @@ export default function ChatHome() {
     [socket, message, chatActivity, user],
   );
 
+  const getLastMessage = useCallback(
+    attendant => {
+      const messagesUser = messages.filter(
+        m =>
+          (m.user === attendant.id && m.toUser === user?.id) ||
+          (m.user === user?.id && m.toUser === attendant.id),
+      );
+      if (messagesUser.length > 0) {
+        return messagesUser[messagesUser.length - 1].message;
+      }
+      return null;
+    },
+    [messages, user],
+  );
+
   function handleKeyPress(e: KeyboardEvent<HTMLInputElement>): void {
     if (e.which !== 13) {
       socket.emit('typing', { user: user.id, typing: true });
@@ -107,13 +122,14 @@ export default function ChatHome() {
         setChatActivity={setChatActivity}
         users={users.filter(u => u.id !== user.id)}
         usersLoggeds={usersLoggeds}
+        getLastMessage={getLastMessage}
       />
       {chatActivity && (
         <Chat>
           <HeaderChat>
             <p>{chatActivity.name}</p>
             <img
-              src={`${constants.API_URL}/myAvatars/${chatActivity.id}`}
+              src={`${urls[process.env.NODE_ENV]}/myAvatars/${chatActivity.id}`}
               alt={chatActivity.name}
               width="40"
               height="40"
@@ -129,8 +145,10 @@ export default function ChatHome() {
                   (m.toUser === user.id && m.user === chatActivity.id),
               )
               .reverse()
-              .map(m => (
-                <Message owner={user.id === m?.user}>{m.message}</Message>
+              .map((m, index) => (
+                <Message key={index} owner={user.id === m?.user}>
+                  {m.message}
+                </Message>
               ))}
           </Messages>
           <form onSubmit={sendMessage}>

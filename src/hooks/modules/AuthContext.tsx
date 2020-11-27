@@ -1,4 +1,11 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  useEffect,
+} from 'react';
 import api from '../../services/api';
 
 interface SingnCredencials {

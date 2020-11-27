@@ -1,11 +1,11 @@
+import { urls } from '@/constants';
 import React from 'react';
-import { MdAdd } from 'react-icons/md';
 import {
   Container,
-  NewChat,
   Chat,
   ChatList as ChatListContent,
   TitleChats,
+  CircleOnline,
 } from './styles';
 
 interface User {
@@ -19,13 +19,16 @@ interface ChatProps {
   setChatActivity: Function;
   usersLoggeds: Record<string, any>;
   typing: Record<string, any>;
+  getLastMessage: Function;
 }
+
 const ChatList: React.FC<ChatProps> = ({
   users,
   chatActivity,
   setChatActivity,
   usersLoggeds,
   typing,
+  getLastMessage,
 }) => {
   return (
     <Container>
@@ -34,12 +37,27 @@ const ChatList: React.FC<ChatProps> = ({
         {users.map(u => (
           <Chat
             active={chatActivity && u.id === chatActivity.id}
-            key={Chat.id}
+            key={u.id}
             onClick={() => setChatActivity(u)}
           >
-            <h1>{u.name}</h1>
-            {usersLoggeds && usersLoggeds[u?.id] && <p>Online</p>}
-            {typing && typing[u?.id] && <p>Digitando...</p>}
+            <img
+              src={`${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`}
+              alt={u.name}
+              width="40"
+              height="40"
+            />
+            <section>
+              <h1>
+                {u.name}
+
+                {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+              </h1>
+              {typing && typing[u?.id] ? (
+                <small>Digitando...</small>
+              ) : (
+                <small>{getLastMessage(u)}</small>
+              )}
+            </section>
           </Chat>
         ))}
       </ChatListContent>

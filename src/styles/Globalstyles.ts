@@ -10,6 +10,7 @@ export default createGlobalStyle`
 *:focus{
   outline : 0;
 }
+
 body{
   -webkit-font-smoothing: antialiased !important;
   background  : #312E38;
@@ -31,4 +32,5 @@ ul{
 button{
   cursor: pointer;
 }
+
 `;

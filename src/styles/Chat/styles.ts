@@ -74,7 +74,7 @@ export const InputMessage = styled.div<ContainerProps>`
     props.focused &&
     css`
       color: #343152;
-      border-color: #343152;
+      border-color: #de595c;
     `}
 
   input {

@@ -3,14 +3,14 @@ import React, { ButtonHTMLAttributes } from 'react';
 import { Container } from './styles';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean;
+  loading?: number;
 };
 
 const Button: React.FC<ButtonProps> = ({ children, loading, ...rest }) => {
   return (
-    <Container loading={Number(loading)}>
-      <button disabled={loading} type="button" {...rest}>
-        {loading ? 'Enviado...' : children}
+    <Container loading={loading}>
+      <button disabled={Boolean(loading)} type="button" {...rest}>
+        {loading ? 'Entrando...' : children}
       </button>
     </Container>
   );

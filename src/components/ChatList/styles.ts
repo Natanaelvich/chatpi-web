@@ -5,18 +5,18 @@ interface ChatProps {
 }
 
 const boxShadow = css`
-  -webkit-box-shadow: 0px 0px 1px 3px rgba(240, 240, 240, 1);
-  -moz-box-shadow: 0px 0px 1px 3px rgba(240, 240, 240, 1);
-  box-shadow: 0px 0px 1px 3px rgba(240, 240, 240, 1);
+  -webkit-box-shadow: 0px 0px 1px 3px #de595c;
+  -moz-box-shadow: 0px 0px 1px 3px #de595c;
+  box-shadow: 0px 0px 1px 3px #de595c;
 `;
 
 export const Container = styled.aside`
   background: #202225;
-  padding: 20px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  height: 100vh;
 `;
 export const TitleChats = styled.h1`
   text-align: center;
@@ -26,34 +26,60 @@ export const ChatList = styled.div`
   display: flex;
   flex-direction: column;
 `;
+export const CircleOnline = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #24cc63;
+  margin-left: 6px;
+`;
 export const Chat = styled.button<ChatProps>`
-  width: 150px;
   transition: all 0.2s;
   border: 0;
   background: transparent;
-  margin: 0 0 18px;
-  background: #de595c;
-  padding: 5px 10px;
-  border-radius: 12px;
+  padding: 15px 20px;
   color: #eee;
   overflow: hidden;
-  &:hover {
-    ${boxShadow}
-    color: #fff;
-  }
-  ${props =>
-    props.active
-      ? css`
-          ${boxShadow}
-        `
-      : css`
-          box-shadow: 0;
-        `}
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   h1 {
     font-size: 18px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    border-radius: 20px;
+    margin-right: 12px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &:hover {
+    color: #de595c;
+  }
+  ${props =>
+    props.active
+      ? css`
+          color: #de595c;
+        `
+      : css`
+          color: #fff;
+          box-shadow: 0;
+        `}
+
+  small {
+    color: #89748a;
   }
 `;
 export const NewChat = styled.button`

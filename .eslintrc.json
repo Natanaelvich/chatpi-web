@@ -39,6 +39,7 @@
     "@typescript-eslint/no-use-before-define": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "react/no-array-index-key": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "off",
       {
