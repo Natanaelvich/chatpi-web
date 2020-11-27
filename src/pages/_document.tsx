@@ -51,6 +51,11 @@ export default class MyDocument extends Document {
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <title>Chat PI</title>
+          <meta name="title" content="Chat PI" />
+          <meta
+            name="description"
+            content="Projeto integrador ADS 4º período Unifacema 2020."
+          />
 
           <meta httpEquiv="x-ua-compatible" content="IE=edge,chrome=1" />
           <meta name="MobileOptimized" content="320" />
