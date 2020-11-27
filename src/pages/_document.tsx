@@ -56,13 +56,6 @@ export default class MyDocument extends Document {
             name="description"
             content="Projeto integrador ADS 4º período Unifacema 2020."
           />
-          <meta
-            property="og:image"
-            itemProp="image"
-            content="https://mundotech.s3.amazonaws.com/seo_whats.png"
-          />
-          <meta property="og:type" content="website" />
-          <meta property="og:updated_time" content="1440432930" />
 
           <meta httpEquiv="x-ua-compatible" content="IE=edge,chrome=1" />
           <meta name="MobileOptimized" content="320" />
