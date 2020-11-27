@@ -73,8 +73,14 @@ export default class MyDocument extends Document {
           <meta property="og:locale" content="pt_BR" />
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content="Chat PI" />
-          <meta property="og:image" content="/static/seo.png" />
-          <meta property="og:image:secure_url" content="/static/seo.png" />
+          <meta
+            property="og:image"
+            content="https://mundotech.s3.amazonaws.com/seo.png"
+          />
+          <meta
+            property="og:image:secure_url"
+            content="https://mundotech.s3.amazonaws.com/seo.png"
+          />
           <meta property="og:image:alt" content="Thumbnail" />
           <meta property="og:image:type" content="image/png" />
           <meta property="og:image:width" content="1200" />
@@ -86,8 +92,14 @@ export default class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@natanaelvich" />
           <meta name="twitter:creator" content="@natanaelvich" />
-          <meta name="twitter:image" content="/static/seo.png" />
-          <meta name="twitter:image:src" content="/static/seo.png" />
+          <meta
+            name="twitter:image"
+            content="https://mundotech.s3.amazonaws.com/seo.png"
+          />
+          <meta
+            name="twitter:image:src"
+            content="https://mundotech.s3.amazonaws.com/seo.png"
+          />
           <meta name="twitter:image:alt" content="Thumbnail" />
           <meta name="twitter:image:width" content="1200" />
           <meta name="twitter:image:height" content="620" />
