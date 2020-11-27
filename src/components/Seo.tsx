@@ -1,9 +1,8 @@
-import { Head } from 'next/document';
 import React from 'react';
 
 const Seo: React.FC = () => {
   return (
-    <Head>
+    <>
       <meta httpEquiv="x-ua-compatible" content="IE=edge,chrome=1" />
       <meta name="MobileOptimized" content="320" />
       <meta name="HandheldFriendly" content="True" />
@@ -20,8 +19,8 @@ const Seo: React.FC = () => {
       <meta property="og:locale" content="pt_BR" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Chat PI" />
-      <meta property="og:image" content="Logo.pns" />
-      <meta property="og:image:secure_url" content="Logo.pns" />
+      <meta property="og:image" content="seo.png" />
+      <meta property="og:image:secure_url" content="seo.png" />
       <meta property="og:image:alt" content="Thumbnail" />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />
@@ -36,7 +35,7 @@ const Seo: React.FC = () => {
       <meta name="twitter:image:alt" content="Thumbnail" />
       <meta name="twitter:image:width" content="1200" />
       <meta name="twitter:image:height" content="620" />
-    </Head>
+    </>
   );
 };
 
