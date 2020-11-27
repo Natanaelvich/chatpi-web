@@ -5,12 +5,13 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import Link from 'next/link';
-import Seo from '@/components/Seo';
+import Image from 'next/image';
 import {
   Container,
   Content,
-  Background,
+  BackGround,
   AnimationContainer,
+  Logo,
 } from '../styles/SingnIn/styles';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -73,6 +74,9 @@ export default function SingnIn() {
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
+            <Logo>
+              <Image src="/Logo.png" alt="Chat PI" width={320} height={240} />
+            </Logo>
             <h1>Chat PI</h1>
 
             <Input placeholder="E-mail" icon={FiMail} name="email" />
@@ -96,7 +100,9 @@ export default function SingnIn() {
           </Link>
         </AnimationContainer>
       </Content>
-      <Background />
+      <BackGround>
+        <Image src="/Logo.png" alt="Chat PI" width={620} height={440} />
+      </BackGround>
     </Container>
   );
 }

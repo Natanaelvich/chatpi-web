@@ -39,6 +39,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt">
         <Head>
+          <Seo />
           <meta charSet="utf-8" />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap"
@@ -50,7 +51,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
-          <Seo />
         </Head>
 
         <body>

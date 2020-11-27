@@ -7,10 +7,10 @@ import { FormHandles } from '@unform/core';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import { BackGround, Logo } from '@/styles/SingnIn/styles';
 import {
   Container,
   Content,
-  Background,
   AnimationContainer,
 } from '../styles/SingnUp/styles';
 
@@ -74,10 +74,15 @@ const SingnUp: React.FC = () => {
 
   return (
     <Container>
-      <Background />
+      <BackGround>
+        <Image src="/Logo.png" alt="Chat PI" width={620} height={440} />
+      </BackGround>
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnUp}>
+            <Logo>
+              <Image src="/Logo.png" alt="Chat PI" width={320} height={240} />
+            </Logo>
             <h1>Faça seu cadatro</h1>
 
             <Input placeholder="Nome" name="name" icon={FiUser} />

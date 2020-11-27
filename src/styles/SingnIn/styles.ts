@@ -79,9 +79,27 @@ export const Content = styled.div`
   width: 100%;
   max-width: 700px;
 `;
-
-export const Background = styled.div`
+export const BackGround = styled.div`
   flex: 1;
-  background: url('/Logo.png') no-repeat center;
-  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 683px) {
+    & {
+      display: none;
+    }
+  }
+`;
+export const Logo = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 683px) {
+    & {
+      display: none;
+    }
+  }
 `;
