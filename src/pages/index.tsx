@@ -75,7 +75,7 @@ export default function SingnIn() {
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
             <Logo>
-              <Image src="/Logo.png" alt="Chat PI" width={320} height={240} />
+              <Image src="/Logo.png" alt="Chat PI" width={320} height={260} />
             </Logo>
             <h1>Chat PI</h1>
 
@@ -101,7 +101,7 @@ export default function SingnIn() {
         </AnimationContainer>
       </Content>
       <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={440} />
+        <Image src="/Logo.png" alt="Chat PI" width={620} height={480} />
       </BackGround>
     </Container>
   );

@@ -83,7 +83,7 @@ export const BackGround = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (max-width: 683px) {
     & {
@@ -95,7 +95,7 @@ export const Logo = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (min-width: 683px) {
     & {
