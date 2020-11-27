@@ -6,6 +6,7 @@ import {
   ChatList as ChatListContent,
   TitleChats,
   CircleOnline,
+  NameUser,
 } from './styles';
 
 interface User {
@@ -47,11 +48,10 @@ const ChatList: React.FC<ChatProps> = ({
               height="40"
             />
             <section>
-              <h1>
-                {u.name}
-
+              <NameUser>
+                <h1>{u.name}</h1>
                 {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
-              </h1>
+              </NameUser>
               {typing && typing[u?.id] ? (
                 <small>Digitando...</small>
               ) : (

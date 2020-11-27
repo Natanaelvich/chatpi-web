@@ -47,11 +47,11 @@ export const Chat = styled.button<ChatProps>`
 
   h1 {
     font-size: 18px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    display: flex;
+    text-overflow: ellipsis;
     align-items: center;
+    max-width: 100px;
   }
 
   img {
@@ -80,12 +80,13 @@ export const Chat = styled.button<ChatProps>`
 
   small {
     color: #89748a;
+    width: 100px;
+
+    white-space: nowrap;
     overflow: hidden;
-    max-width: 200px;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    align-items: center;
+    max-width: 100px;
   }
 `;
 export const NewChat = styled.button`
@@ -100,4 +101,9 @@ export const NewChat = styled.button`
     ${boxShadow}
     background: #DE595C;
   }
+`;
+export const NameUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

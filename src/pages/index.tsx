@@ -53,7 +53,6 @@ export default function SingnIn() {
           title: 'logado com sucesso',
         });
         router.push('chat');
-        setLoading(0);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -68,6 +67,8 @@ export default function SingnIn() {
           title: 'Erro no login',
           description: 'Verifique suas credenciais',
         });
+      } finally {
+        setLoading(0);
       }
     },
     [signIn, addToast, router],
