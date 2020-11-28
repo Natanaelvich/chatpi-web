@@ -9,6 +9,9 @@ import {
   InputMessage,
   HeaderChat,
   Message,
+  Header,
+  HeaderContent,
+  Profile,
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
@@ -19,12 +22,17 @@ import React, {
   useState,
 } from 'react';
 import io from 'socket.io-client';
-import { Container } from '../styles/SingnIn/styles';
+import { FiPower } from 'react-icons/fi';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { urls } from '../constants';
+import { Container } from '../styles/SingnIn/styles';
 
 export default function ChatHome() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const router = useRouter();
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -120,61 +128,89 @@ export default function ChatHome() {
   }
 
   return (
-    <Container>
-      <ChatList
-        typing={typing}
-        chatActivity={chatActivity}
-        setChatActivity={setChatActivity}
-        users={users.filter(u => u.id !== user.id)}
-        usersLoggeds={usersLoggeds}
-        getLastMessage={getLastMessage}
-      />
-      {chatActivity && (
-        <Chat>
-          <HeaderChat>
-            <p>{chatActivity.name}</p>
-            <img
-              src={`${urls[process.env.NODE_ENV]}/myAvatars/${chatActivity.id}`}
-              alt={chatActivity.name}
-              width="40"
-              height="40"
-            />
-          </HeaderChat>
+    <>
+      <Header>
+        <HeaderContent>
+          <Image src="/Logo.png" alt="Chat PI" width={80} height={60} />
 
-          <Messages>
-            {typing && typing[chatActivity.id] && <p>Digitando...</p>}
-            {messages
-              .filter(
-                m =>
-                  (m.toUser === chatActivity.id && m.user === user.id) ||
-                  (m.toUser === user.id && m.user === chatActivity.id),
-              )
-              .reverse()
-              .map((m, index) => (
-                <Message key={index} owner={user.id === m?.user}>
-                  {m.message}
-                </Message>
-              ))}
-          </Messages>
-          <form onSubmit={sendMessage}>
-            <InputMessage focused={inputFocus}>
-              <input
-                onKeyPress={handleKeyPress}
-                onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
-                onBlur={() => {
-                  setInputFocus(false);
-                  socket.emit('typingBlur', { user: user.id, typing: false });
-                }}
-                value={message}
-                onChange={text => setMessage(text.target.value)}
+          <Profile>
+            <img
+              src={`${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`}
+              alt={user?.name}
+            />
+            <div>
+              <span>Bem-vindo,</span>
+              <Link href="profile">
+                <a>
+                  <strong>{user?.name}</strong>
+                </a>
+              </Link>
+            </div>
+          </Profile>
+
+          <button type="button" onClick={() => router.push('/')}>
+            <FiPower />
+          </button>
+        </HeaderContent>
+      </Header>
+      <Container>
+        <ChatList
+          typing={typing}
+          chatActivity={chatActivity}
+          setChatActivity={setChatActivity}
+          users={users.filter(u => u.id !== user.id)}
+          usersLoggeds={usersLoggeds}
+          getLastMessage={getLastMessage}
+        />
+        {chatActivity && (
+          <Chat>
+            <HeaderChat>
+              <p>{chatActivity.name}</p>
+              <img
+                src={`${urls[process.env.NODE_ENV]}/myAvatars/${
+                  chatActivity.id
+                }`}
+                alt={chatActivity.name}
+                width="40"
+                height="40"
               />
-              <button type="submit">
-                <AiOutlineSend size={28} color="#fff" />
-              </button>
-            </InputMessage>
-          </form>
-        </Chat>
-      )}
-    </Container>
+            </HeaderChat>
+
+            <Messages>
+              {typing && typing[chatActivity.id] && <p>Digitando...</p>}
+              {messages
+                .filter(
+                  m =>
+                    (m.toUser === chatActivity.id && m.user === user.id) ||
+                    (m.toUser === user.id && m.user === chatActivity.id),
+                )
+                .reverse()
+                .map((m, index) => (
+                  <Message key={index} owner={user.id === m?.user}>
+                    {m.message}
+                  </Message>
+                ))}
+            </Messages>
+            <form onSubmit={sendMessage}>
+              <InputMessage focused={inputFocus}>
+                <input
+                  onKeyPress={handleKeyPress}
+                  onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
+                  onBlur={() => {
+                    setInputFocus(false);
+                    socket.emit('typingBlur', { user: user.id, typing: false });
+                  }}
+                  value={message}
+                  onChange={text => setMessage(text.target.value)}
+                />
+                <button type="submit">
+                  <AiOutlineSend size={28} color="#fff" />
+                </button>
+              </InputMessage>
+            </form>
+          </Chat>
+        )}
+      </Container>
+    </>
   );
 }
