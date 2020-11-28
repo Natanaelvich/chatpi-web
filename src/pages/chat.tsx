@@ -111,9 +111,14 @@ export default function ChatHome() {
 
   function handleKeyPress(e: KeyboardEvent<HTMLInputElement>): void {
     if (e.which !== 13) {
-      socket.emit('typing', { user: user.id, typing: true });
+      socket.emit('typing', {
+        user: user?.id,
+        typing: true,
+        toUser: chatActivity?.id,
+      });
     }
   }
+
   return (
     <Container>
       <ChatList

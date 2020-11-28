@@ -14,9 +14,9 @@ export const Container = styled.aside`
   background: #202225;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   height: 100vh;
+  width: 250px;
+  overflow: auto;
 `;
 export const TitleChats = styled.h1`
   text-align: center;

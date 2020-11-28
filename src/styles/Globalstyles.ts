@@ -16,6 +16,7 @@ body{
   background  : #312E38;
   color : #fff;
 }
+
 body,input,button{
   font-size : 16px;
   font-family: 'Roboto Slab', serif;
@@ -32,5 +33,26 @@ ul{
 button{
   cursor: pointer;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #343152;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #343152;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3A4269;
+}
+
+
 
 `;

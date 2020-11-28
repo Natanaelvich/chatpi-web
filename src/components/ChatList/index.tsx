@@ -60,6 +60,31 @@ const ChatList: React.FC<ChatProps> = ({
             </section>
           </Chat>
         ))}
+        {users.map(u => (
+          <Chat
+            active={chatActivity && u.id === chatActivity.id}
+            key={u.id}
+            onClick={() => setChatActivity(u)}
+          >
+            <img
+              src={`${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`}
+              alt={u.name}
+              width="40"
+              height="40"
+            />
+            <section>
+              <NameUser>
+                <h1>{u.name}</h1>
+                {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+              </NameUser>
+              {typing && typing[u?.id] ? (
+                <small>Digitando...</small>
+              ) : (
+                <small>{getLastMessage(u)}</small>
+              )}
+            </section>
+          </Chat>
+        ))}
       </ChatListContent>
     </Container>
   );
