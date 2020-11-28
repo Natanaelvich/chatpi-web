@@ -148,9 +148,11 @@ export default function ChatHome() {
             </div>
           </Profile>
 
-          <button type="button" onClick={() => router.push('/')}>
-            <FiPower />
-          </button>
+          <Link href="/">
+            <a>
+              <FiPower />
+            </a>
+          </Link>
         </HeaderContent>
       </Header>
       <Container>
