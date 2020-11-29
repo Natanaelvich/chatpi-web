@@ -32,7 +32,6 @@ import { Container } from '../styles/SingnIn/styles';
 export default function ChatHome() {
   const { user } = useAuth();
   const { addToast } = useToast();
-  const router = useRouter();
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -207,7 +206,11 @@ export default function ChatHome() {
                   onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
                   onBlur={() => {
                     setInputFocus(false);
-                    socket.emit('typingBlur', { user: user.id, typing: false });
+                    socket.emit('typingBlur', {
+                      user: user.id,
+                      typing: false,
+                      toUser: chatActivity?.id,
+                    });
                   }}
                   value={message}
                   onChange={text => setMessage(text.target.value)}
