@@ -90,11 +90,18 @@ export default function ChatHome() {
             toUser: chatActivity.id,
             message,
             readed: false,
+            date: new Date(),
           }),
         );
         setMessages(oldMessages => [
           ...oldMessages,
-          { user: user?.id, toUser: chatActivity.id, message, readed: false },
+          {
+            user: user?.id,
+            toUser: chatActivity.id,
+            message,
+            readed: true,
+            date: new Date(),
+          },
         ]);
         setMessage('');
       }
