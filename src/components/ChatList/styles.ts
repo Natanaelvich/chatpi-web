@@ -14,7 +14,6 @@ export const Container = styled.aside`
   background: #202225;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 250px;
   overflow: auto;
 `;

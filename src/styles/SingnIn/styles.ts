@@ -1,11 +1,14 @@
 import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
-export const Container = styled.div`
+export const Wrapper = styled.div`
   height: 100vh;
-
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
+`;
+export const Container = styled.div`
+  display: flex;
+  flex: 1;
 `;
 
 const appearFromLeft = keyframes`

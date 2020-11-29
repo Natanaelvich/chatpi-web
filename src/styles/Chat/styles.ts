@@ -23,7 +23,6 @@ export const HeaderChat = styled.div`
   }
 `;
 export const Chat = styled.div`
-  height: 100vh;
   width: 100vw;
 
   display: flex;

@@ -27,7 +27,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { urls } from '../constants';
-import { Container } from '../styles/SingnIn/styles';
+import { Container, Wrapper } from '../styles/SingnIn/styles';
 
 export default function ChatHome() {
   const { user } = useAuth();
@@ -134,7 +134,7 @@ export default function ChatHome() {
   }
 
   return (
-    <>
+    <Wrapper>
       <Header>
         <HeaderContent>
           <Image src="/Logo.png" alt="Chat PI" width={80} height={60} />
@@ -202,6 +202,7 @@ export default function ChatHome() {
             <form onSubmit={sendMessage}>
               <InputMessage focused={inputFocus}>
                 <input
+                  placeholder="Digite sua mensagem..."
                   onKeyPress={handleKeyPress}
                   onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
                   onBlur={() => {
@@ -223,6 +224,6 @@ export default function ChatHome() {
           </Chat>
         )}
       </Container>
-    </>
+    </Wrapper>
   );
 }
