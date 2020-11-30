@@ -74,7 +74,7 @@ export default function ChatHome() {
       setUsersLoggeds(JSON.parse(usersLoggedsSocket));
     });
     socket.on('typing', typingSocket => {
-      setTyping(typingSocket);
+      setTyping(JSON.parse(typingSocket));
     });
   }, [socket]);
 
