@@ -125,11 +125,14 @@ export default function ChatHome() {
 
   function handleKeyPress(e: KeyboardEvent<HTMLInputElement>): void {
     if (e.which !== 13) {
-      socket.emit('typing', {
-        user: user?.id,
-        typing: true,
-        toUser: chatActivity?.id,
-      });
+      socket.emit(
+        'typing',
+        JSON.stringify({
+          user: user?.id,
+          typing: true,
+          toUser: chatActivity?.id,
+        }),
+      );
     }
   }
 
@@ -207,11 +210,14 @@ export default function ChatHome() {
                   onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
                   onBlur={() => {
                     setInputFocus(false);
-                    socket.emit('typingBlur', {
-                      user: user.id,
-                      typing: false,
-                      toUser: chatActivity?.id,
-                    });
+                    socket.emit(
+                      'typingBlur',
+                      JSON.stringify({
+                        user: user.id,
+                        typing: false,
+                        toUser: chatActivity?.id,
+                      }),
+                    );
                   }}
                   value={message}
                   onChange={text => setMessage(text.target.value)}
