@@ -81,13 +81,15 @@ export const Content = styled.div`
   place-content: center;
 
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
+  margin: auto;
 `;
 export const BackGround = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  height: 100vh;
 
   @media (max-width: 683px) {
     & {
@@ -99,7 +101,7 @@ export const Logo = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 
   @media (min-width: 683px) {
     & {

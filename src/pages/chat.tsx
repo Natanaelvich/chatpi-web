@@ -137,7 +137,7 @@ export default function ChatHome() {
     <Wrapper>
       <Header>
         <HeaderContent>
-          <Image src="/Logo.png" alt="Chat PI" width={80} height={60} />
+          <Image src="/Logo.png" alt="Chat PI" width={80} height={77} />
 
           <Profile>
             <img
