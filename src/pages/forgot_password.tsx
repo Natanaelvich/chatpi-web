@@ -104,9 +104,6 @@ const ForgotPassword: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
-      <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
-      </BackGround>
     </Container>
   );
 };

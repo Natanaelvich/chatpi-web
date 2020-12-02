@@ -10,7 +10,7 @@ const Button: React.FC<ButtonProps> = ({ children, loading, ...rest }) => {
   return (
     <Container loading={loading}>
       <button disabled={Boolean(loading)} type="button" {...rest}>
-        {loading ? 'Entrando...' : children}
+        {loading ? '...' : children}
       </button>
     </Container>
   );
