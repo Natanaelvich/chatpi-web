@@ -49,6 +49,17 @@ export const Chat = styled.div`
   flex-direction: column;
   justify-content: flex-end;
 `;
+export const Background = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1d1b38;
+  flex: 1;
+
+  @media (max-width: 375px) {
+    display: none;
+  }
+`;
 export const Messages = styled.div`
   background: #1d1b38;
   flex: 1;
@@ -123,7 +134,7 @@ export const InputMessage = styled.div<ContainerProps>`
 `;
 export const Header = styled.header<HeaderProps>`
   padding: 10px 0;
-  background: linear-gradient(180deg, #de595c 0%, #343152 100%);
+  background: linear-gradient(90deg, #d56065 0%, #343152 101.5%);
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);

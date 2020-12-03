@@ -13,6 +13,7 @@ import {
   Header,
   HeaderContent,
   Profile,
+  Background,
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
@@ -174,7 +175,7 @@ export default function ChatHome() {
           usersLoggeds={usersLoggeds}
           getLastMessage={getLastMessage}
         />
-        {chatActivity && (
+        {chatActivity ? (
           <Chat>
             <HeaderChat>
               <button type="button" onClick={() => setChatActivity(null)}>
@@ -240,6 +241,10 @@ export default function ChatHome() {
               </InputMessage>
             </form>
           </Chat>
+        ) : (
+          <Background>
+            <p>Clique em um usuario para iniciar uma coversa </p>
+          </Background>
         )}
       </Container>
     </Wrapper>
