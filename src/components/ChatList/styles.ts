@@ -2,14 +2,12 @@ import styled, { css } from 'styled-components';
 
 interface ChatProps {
   active: boolean;
-  chatShow: Record<string, any>;
 }
 interface ContainerProps {
-  active: boolean;
   chatShow: Record<string, any>;
 }
 
-export const Container = styled.aside<ChatProps>`
+export const Container = styled.aside<ContainerProps>`
   background: #202225;
   display: flex;
   flex-direction: column;
