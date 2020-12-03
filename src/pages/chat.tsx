@@ -182,7 +182,12 @@ export default function ChatHome() {
               </button>
 
               <section>
-                <p>{chatActivity.name}</p>
+                <div>
+                  <p>{chatActivity.name}</p>
+                  {usersLoggeds && usersLoggeds[chatActivity?.id] && (
+                    <small>Online</small>
+                  )}
+                </div>
                 <img
                   src={`${urls[process.env.NODE_ENV]}/myAvatars/${
                     chatActivity.id
@@ -195,7 +200,7 @@ export default function ChatHome() {
             </HeaderChat>
 
             <Messages>
-              {typing && typing[chatActivity.id] && <p>Digitando...</p>}
+              {typing && typing[chatActivity.id] && <small>Digitando...</small>}
               {messages
                 .filter(
                   m =>

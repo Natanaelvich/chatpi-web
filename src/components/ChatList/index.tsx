@@ -61,7 +61,6 @@ const ChatList: React.FC<ChatProps> = ({
                 <small>Digitando...</small>
               ) : (
                 <small>{getLastMessage(u)}</small>
-                // <small>{getLastMessage(u) || '...'}</small>
               )}
             </section>
           </Chat>

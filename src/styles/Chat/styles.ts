@@ -23,6 +23,13 @@ export const HeaderChat = styled.div`
   section {
     display: flex;
     align-items: center;
+    div {
+      margin-right: 12px;
+      small {
+        color: #89748a;
+        font-size: 12px;
+      }
+    }
     p {
       margin-right: 20px;
     }
@@ -49,9 +56,11 @@ export const Messages = styled.div`
   transform: rotate(180deg);
   direction: rtl;
 
-  p {
+  small {
     transform: rotate(180deg);
     direction: ltr;
+    color: #89748a;
+    font-size: 12px;
   }
 `;
 export const Message = styled.p<MessageProps>`
