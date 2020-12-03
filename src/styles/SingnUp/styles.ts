@@ -2,10 +2,10 @@ import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  height: 100vh;
-
   display: flex;
-  align-items: stretch;
+  flex: 1;
+  overflow: auto;
+  background: linear-gradient(270deg, #3f3a79 27.66%, #d56065 98.55%);
 `;
 
 const appearFromRight = keyframes`

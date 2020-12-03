@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
+  flex: 1;
+  overflow: auto;
+  background: linear-gradient(270deg, #3f3a79 27.66%, #d56065 98.55%);
+
   > header {
     height: 144px;
-    background: #28262e;
+    background: #312d5e;
     display: flex;
     align-items: center;
     div {

@@ -6,8 +6,11 @@ interface ContainerProps {
 interface MessageProps {
   owner: boolean;
 }
+interface HeaderProps {
+  chatShow: Record<string, any>;
+}
 export const HeaderChat = styled.div`
-  background: #232129;
+  background: #312d5e;
   height: 50px;
 
   display: flex;
@@ -47,6 +50,7 @@ export const Chat = styled.div`
   justify-content: flex-end;
 `;
 export const Messages = styled.div`
+  background: #1d1b38;
   flex: 1;
   padding: 20px;
   overflow: auto;
@@ -73,7 +77,7 @@ export const Message = styled.p<MessageProps>`
   direction: ltr;
 `;
 export const InputMessage = styled.div<ContainerProps>`
-  background: #232129;
+  background: #312d5e;
   transition: border 0.2s;
   border: 2px solid #232129;
   padding: 16px;
@@ -102,7 +106,7 @@ export const InputMessage = styled.div<ContainerProps>`
     color: #f4ede8;
 
     &::placeholder {
-      color: #666360;
+      color: #89748a;
     }
   }
 
@@ -117,9 +121,20 @@ export const InputMessage = styled.div<ContainerProps>`
     transition: color 0.2s;
   }
 `;
-export const Header = styled.header`
+export const Header = styled.header<HeaderProps>`
   padding: 10px 0;
-  background: #28262e;
+  background: linear-gradient(180deg, #de595c 0%, #343152 100%);
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
+
+  @media (max-width: 375px) {
+    ${props =>
+      props.chatShow &&
+      css`
+        display: none;
+      `}
+  }
 `;
 
 export const HeaderContent = styled.div`

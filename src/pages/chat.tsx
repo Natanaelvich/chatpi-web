@@ -138,7 +138,7 @@ export default function ChatHome() {
 
   return (
     <Wrapper>
-      <Header>
+      <Header chatShow={chatActivity}>
         <HeaderContent>
           <Image src="/Logo.png" alt="Chat PI" width={80} height={77} />
 
@@ -159,7 +159,7 @@ export default function ChatHome() {
 
           <Link href="/">
             <a>
-              <FiPower />
+              <FiPower color="#fff" />
             </a>
           </Link>
         </HeaderContent>

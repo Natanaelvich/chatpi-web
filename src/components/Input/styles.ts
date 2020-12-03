@@ -8,12 +8,11 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: #232129;
+  background: rgba(0, 0, 0, 0.5);
   transition: border 0.2s;
-  border: 2px solid #232129;
   padding: 16px;
   width: 100%;
-  color: #666360;
+  color: #fff;
   border-radius: 10px;
 
   display: flex;
@@ -49,14 +48,14 @@ export const Container = styled.div<ContainerProps>`
     color: #f4ede8;
 
     &::placeholder {
-      color: #666360;
+      color: #89748a;
     }
   }
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #232129 inset !important;
+    -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.9) inset !important;
   }
   input:-webkit-autofill {
     -webkit-text-fill-color: #f4ede8 !important;

@@ -14,7 +14,7 @@ export const Container = styled.div`
     > a {
       font-size: 20px;
       font-weight: bold;
-      color: #de595c;
+      color: #343152;
       display: block;
       margin-right: 12px;
       border: 1px solid #fff;

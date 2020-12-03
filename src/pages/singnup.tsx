@@ -81,7 +81,7 @@ const SingnUp: React.FC = () => {
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnUp}>
             <Logo>
-              <Image src="/Logo.png" alt="Chat PI" width={320} height={240} />
+              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
             </Logo>
             <h1>Faça seu cadatro</h1>
 

@@ -8,7 +8,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.aside<ContainerProps>`
-  background: #202225;
+  background: #1d1b38;
   display: flex;
   flex-direction: column;
   width: 250px;

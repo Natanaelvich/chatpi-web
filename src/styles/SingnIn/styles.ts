@@ -10,6 +10,7 @@ export const Container = styled.div`
   display: flex;
   flex: 1;
   overflow: auto;
+  background: linear-gradient(270deg, #3f3a79 27.66%, #d56065 98.55%);
 `;
 
 const appearFromLeft = keyframes`
@@ -57,14 +58,14 @@ export const AnimationContainer = styled.div`
   }
 
   > a {
-    color: #de595c;
+    color: #ffff;
     display: block;
     margin-top: 24px;
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.2, '#DE595C')};
+      color: ${shade(0.2, '#fff')};
     }
 
     svg {
