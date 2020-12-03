@@ -11,15 +11,25 @@ export const HeaderChat = styled.div`
   height: 50px;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 12px;
 
-  p {
-    margin-right: 20px;
+  button {
+    border: 0;
+    background: transparent;
   }
 
-  img {
-    border-radius: 20px;
+  section {
+    display: flex;
+    align-items: center;
+    p {
+      margin-right: 20px;
+    }
+
+    img {
+      border-radius: 20px;
+    }
   }
 `;
 export const Chat = styled.div`

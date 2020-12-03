@@ -2,6 +2,7 @@ import ChatList from '@/components/ChatList';
 import { useAuth } from '@/hooks/modules/AuthContext';
 import { useToast } from '@/hooks/modules/ToastContext';
 import { AiOutlineSend } from 'react-icons/ai';
+import { IoMdArrowBack } from 'react-icons/io';
 import api from '@/services/api';
 import {
   Chat,
@@ -25,7 +26,6 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -166,6 +166,7 @@ export default function ChatHome() {
       </Header>
       <Container>
         <ChatList
+          chatShow={chatActivity}
           typing={typing}
           chatActivity={chatActivity}
           setChatActivity={setChatActivity}
@@ -176,15 +177,21 @@ export default function ChatHome() {
         {chatActivity && (
           <Chat>
             <HeaderChat>
-              <p>{chatActivity.name}</p>
-              <img
-                src={`${urls[process.env.NODE_ENV]}/myAvatars/${
-                  chatActivity.id
-                }`}
-                alt={chatActivity.name}
-                width="40"
-                height="40"
-              />
+              <button type="button" onClick={() => setChatActivity(null)}>
+                <IoMdArrowBack size={21} color="#fff" />
+              </button>
+
+              <section>
+                <p>{chatActivity.name}</p>
+                <img
+                  src={`${urls[process.env.NODE_ENV]}/myAvatars/${
+                    chatActivity.id
+                  }`}
+                  alt={chatActivity.name}
+                  width="40"
+                  height="40"
+                />
+              </section>
             </HeaderChat>
 
             <Messages>

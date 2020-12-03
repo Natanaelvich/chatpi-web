@@ -2,20 +2,27 @@ import styled, { css } from 'styled-components';
 
 interface ChatProps {
   active: boolean;
+  chatShow: Record<string, any>;
+}
+interface ContainerProps {
+  active: boolean;
+  chatShow: Record<string, any>;
 }
 
-const boxShadow = css`
-  -webkit-box-shadow: 0px 0px 1px 3px #de595c;
-  -moz-box-shadow: 0px 0px 1px 3px #de595c;
-  box-shadow: 0px 0px 1px 3px #de595c;
-`;
-
-export const Container = styled.aside`
+export const Container = styled.aside<ChatProps>`
   background: #202225;
   display: flex;
   flex-direction: column;
   width: 250px;
   overflow: auto;
+
+  @media (max-width: 375px) {
+    ${props =>
+      props.chatShow &&
+      css`
+        display: none;
+      `}
+  }
 `;
 export const TitleChats = styled.h1`
   text-align: center;
@@ -31,7 +38,19 @@ export const CircleOnline = styled.div`
   border-radius: 5px;
   background: #24cc63;
   margin-left: 6px;
+  position: absolute;
+  bottom: 6px;
+  right: 9px;
 `;
+export const AvatarContainer = styled.div`
+  position: relative;
+
+  img {
+    border-radius: 20px;
+    margin-right: 12px;
+  }
+`;
+
 export const Chat = styled.button<ChatProps>`
   transition: all 0.2s;
   border: 0;
@@ -45,7 +64,7 @@ export const Chat = styled.button<ChatProps>`
   align-items: center;
 
   h1 {
-    font-size: 18px;
+    font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,15 +72,19 @@ export const Chat = styled.button<ChatProps>`
     max-width: 100px;
   }
 
-  img {
-    border-radius: 20px;
-    margin-right: 12px;
-  }
-
   section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    small {
+      color: #89748a;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      align-items: center;
+      max-width: 100px;
+    }
   }
 
   &:hover {
@@ -76,30 +99,6 @@ export const Chat = styled.button<ChatProps>`
           color: #fff;
           box-shadow: 0;
         `}
-
-  small {
-    color: #89748a;
-    width: 100px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    align-items: center;
-    max-width: 100px;
-  }
-`;
-export const NewChat = styled.button`
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-  background: transparent;
-  margin: 0 0 8px;
-  transition: all 0.2s;
-  padding: 5px 10px;
-  border-radius: 12px;
-  width: 150px;
-  &:hover {
-    ${boxShadow}
-    background: #DE595C;
-  }
 `;
 export const NameUser = styled.div`
   display: flex;

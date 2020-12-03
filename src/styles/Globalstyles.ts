@@ -45,12 +45,12 @@ button{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #343152;
+  background: #de595c;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A4269;
+  background: #C44F51;
 }
 
 `;

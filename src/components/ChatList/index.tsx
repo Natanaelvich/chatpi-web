@@ -7,6 +7,7 @@ import {
   TitleChats,
   CircleOnline,
   NameUser,
+  AvatarContainer,
 } from './styles';
 
 interface User {
@@ -21,6 +22,7 @@ interface ChatProps {
   usersLoggeds: Record<string, any>;
   typing: Record<string, any>;
   getLastMessage: Function;
+  chatShow: Record<string, any>;
 }
 
 const ChatList: React.FC<ChatProps> = ({
@@ -30,9 +32,10 @@ const ChatList: React.FC<ChatProps> = ({
   usersLoggeds,
   typing,
   getLastMessage,
+  chatShow,
 }) => {
   return (
-    <Container>
+    <Container chatShow={chatShow}>
       <ChatListContent>
         <TitleChats>Conversas</TitleChats>
         {users.map(u => (
@@ -41,21 +44,24 @@ const ChatList: React.FC<ChatProps> = ({
             key={u.id}
             onClick={() => setChatActivity(u)}
           >
-            <img
-              src={`${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`}
-              alt={u.name}
-              width="40"
-              height="40"
-            />
+            <AvatarContainer>
+              <img
+                src={`${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`}
+                alt={u.name}
+                width="40"
+                height="40"
+              />
+              {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+            </AvatarContainer>
             <section>
               <NameUser>
                 <h1>{u.name}</h1>
-                {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
               </NameUser>
               {typing && typing[u?.id] ? (
                 <small>Digitando...</small>
               ) : (
                 <small>{getLastMessage(u)}</small>
+                // <small>{getLastMessage(u) || '...'}</small>
               )}
             </section>
           </Chat>
