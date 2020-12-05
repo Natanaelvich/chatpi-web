@@ -27,11 +27,22 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ProtectRoute } from '@/contexts/auth';
+import PrivateTest from '@/components/PrivateTest';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
-export default function ChatHome() {
+const ChatHome: React.FC = () => {
   const { user } = useAuth();
+
+  // const [loading, setLoading] = useState(true)
+
+  // if (typeof window !== 'undefined') {
+  //   if (!user) {
+  //     window.location.href = '/';
+  //   }
+  // }
+
   const { addToast } = useToast();
 
   const [messages, setMessages] = useState([]);
@@ -251,4 +262,6 @@ export default function ChatHome() {
       </Container>
     </Wrapper>
   );
-}
+};
+
+export default ChatHome;

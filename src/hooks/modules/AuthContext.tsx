@@ -47,6 +47,30 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
+  const { pathname, events } = useRouter();
+
+  useEffect(() => {
+    if (pathname !== '/' && !data.user) {
+      window.location.href = '/';
+    }
+
+    if (pathname === '/' && data.user) {
+      window.location.href = '/chat';
+    }
+
+    const handleRouteChange = url => {
+      if (url !== '/' && !data.user) {
+        window.location.href = '/';
+      }
+    };
+
+    // Monitor routes
+    events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [events, pathname, data.user]);
+
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
       email,
