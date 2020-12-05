@@ -91,6 +91,7 @@ export default function ChatHome() {
             message,
             readed: false,
             date: new Date(),
+            name: user.name,
           }),
         );
         setMessages(oldMessages => [
@@ -101,6 +102,7 @@ export default function ChatHome() {
             message,
             readed: true,
             date: new Date(),
+            name: user.name,
           },
         ]);
         setMessage('');
