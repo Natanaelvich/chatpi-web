@@ -13,6 +13,8 @@ import {
 interface User {
   id: string;
   name: string;
+  email: string;
+  avatar_url: string;
 }
 
 interface ChatProps {
@@ -46,7 +48,10 @@ const ChatList: React.FC<ChatProps> = ({
           >
             <AvatarContainer>
               <img
-                src={`${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`}
+                src={
+                  u.avatar_url ||
+                  `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
+                }
                 alt={u.name}
                 width="40"
                 height="40"

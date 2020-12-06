@@ -27,12 +27,14 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
 const ChatHome: React.FC = () => {
-  const { user } = useAuth();
+  const router = useRouter();
 
+  const { user, signOut } = useAuth();
   const { addToast } = useToast();
 
   const [messages, setMessages] = useState([]);
@@ -140,6 +142,11 @@ const ChatHome: React.FC = () => {
     }
   }
 
+  function logout(): void {
+    window.location.href = '/';
+    signOut();
+  }
+
   return (
     <Wrapper>
       <Header chatShow={chatActivity}>
@@ -148,7 +155,10 @@ const ChatHome: React.FC = () => {
 
           <Profile>
             <img
-              src={`${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`}
+              src={
+                user?.avatar_url ||
+                `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
+              }
               alt={user?.name}
             />
             <div>
@@ -161,11 +171,9 @@ const ChatHome: React.FC = () => {
             </div>
           </Profile>
 
-          <Link href="/">
-            <a>
-              <FiPower color="#fff" />
-            </a>
-          </Link>
+          <button type="button" onClick={logout}>
+            <FiPower color="#fff" size={21} />
+          </button>
         </HeaderContent>
       </Header>
       <Container>

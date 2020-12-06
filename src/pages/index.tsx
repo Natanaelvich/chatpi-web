@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -21,7 +20,6 @@ import { useToast } from '../hooks/modules/ToastContext';
 
 export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
-  const router = useRouter();
 
   const [loading, setLoading] = useState(0);
 
@@ -47,12 +45,6 @@ export default function SingnIn() {
         const { email, password } = data;
 
         await signIn({ email, password });
-
-        addToast({
-          type: 'success',
-          title: 'logado com sucesso',
-        });
-        router.push('chat');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -71,7 +63,7 @@ export default function SingnIn() {
         setLoading(0);
       }
     },
-    [signIn, addToast, router],
+    [signIn, addToast],
   );
 
   return (

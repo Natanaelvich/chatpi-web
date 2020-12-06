@@ -154,16 +154,11 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
 
-  a {
+  button {
     margin-left: auto;
     background: transparent;
     border: 0;
     margin-right: 12px;
-    svg {
-      color: #999591;
-      width: 20px;
-      height: 20px;
-    }
   }
 `;
 
