@@ -50,8 +50,17 @@ const AuthProvider: React.FC = ({ children }) => {
   const { pathname, events } = useRouter();
 
   useEffect(() => {
-    if (pathname !== '/' && !data.user) {
-      window.location.href = '/';
+    if (pathname !== '/') {
+      if (
+        pathname === '/forgot_password' ||
+        pathname === '/reset_password' ||
+        pathname === '/singnup'
+      ) {
+        return;
+      }
+      if (!data.user) {
+        window.location.href = '/';
+      }
     }
 
     if (pathname === '/' && data.user) {
@@ -59,12 +68,18 @@ const AuthProvider: React.FC = ({ children }) => {
     }
 
     const handleRouteChange = url => {
+      if (
+        url === '/forgot_password' ||
+        url === '/reset_password' ||
+        url === '/singnup'
+      ) {
+        return;
+      }
       if (url !== '/' && !data.user) {
         window.location.href = '/';
       }
     };
 
-    // Monitor routes
     events.on('routeChangeStart', handleRouteChange);
     return () => {
       events.off('routeChangeStart', handleRouteChange);
