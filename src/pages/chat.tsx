@@ -32,8 +32,6 @@ import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
 const ChatHome: React.FC = () => {
-  const router = useRouter();
-
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
 
@@ -129,19 +127,6 @@ const ChatHome: React.FC = () => {
     [messages, user],
   );
 
-  function handleKeyPress(e: KeyboardEvent<HTMLInputElement>): void {
-    if (e.which !== 13) {
-      socket.emit(
-        'typing',
-        JSON.stringify({
-          user: user?.id,
-          typing: true,
-          toUser: chatActivity?.id,
-        }),
-      );
-    }
-  }
-
   function logout(): void {
     window.location.href = '/';
     signOut();
@@ -230,7 +215,6 @@ const ChatHome: React.FC = () => {
               <InputMessage focused={inputFocus}>
                 <input
                   placeholder="Digite sua mensagem..."
-                  onKeyPress={handleKeyPress}
                   onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
                   onBlur={() => {
                     setInputFocus(false);
@@ -244,7 +228,17 @@ const ChatHome: React.FC = () => {
                     );
                   }}
                   value={message}
-                  onChange={text => setMessage(text.target.value)}
+                  onChange={text => {
+                    socket.emit(
+                      'typing',
+                      JSON.stringify({
+                        user: user?.id,
+                        typing: true,
+                        toUser: chatActivity?.id,
+                      }),
+                    );
+                    setMessage(text.target.value);
+                  }}
                 />
                 <button type="submit">
                   <AiOutlineSend size={28} color="#fff" />
