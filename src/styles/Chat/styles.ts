@@ -56,7 +56,7 @@ export const Background = styled.div`
   background: #1d1b38;
   flex: 1;
 
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     display: none;
   }
 `;
@@ -139,7 +139,7 @@ export const Header = styled.header<HeaderProps>`
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.42);
 
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     ${props =>
       props.chatShow &&
       css`

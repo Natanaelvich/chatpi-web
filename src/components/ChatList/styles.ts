@@ -14,7 +14,7 @@ export const Container = styled.aside<ContainerProps>`
   width: 250px;
   overflow: auto;
 
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     ${props =>
       props.chatShow &&
       css`
