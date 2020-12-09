@@ -49,7 +49,7 @@ const ChatList: React.FC<ChatProps> = ({
             <AvatarContainer>
               <img
                 src={
-                  u.avatar_url ||
+                  u?.avatar_url ||
                   `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
                 }
                 alt={u.name}

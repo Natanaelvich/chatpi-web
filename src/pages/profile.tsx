@@ -162,7 +162,7 @@ const Profile: React.FC = () => {
           <AvatarInput>
             <img
               src={
-                user.avatar_url ||
+                user?.avatar_url ||
                 `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
               }
               alt={user?.name}
