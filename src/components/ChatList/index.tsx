@@ -8,6 +8,7 @@ import {
   CircleOnline,
   NameUser,
   AvatarContainer,
+  TitleAttendant,
 } from './styles';
 
 interface User {
@@ -39,37 +40,73 @@ const ChatList: React.FC<ChatProps> = ({
   return (
     <Container chatShow={chatShow}>
       <ChatListContent>
-        <TitleChats>Conversas</TitleChats>
-        {users.map(u => (
-          <Chat
-            active={chatActivity && u.id === chatActivity.id}
-            key={u.id}
-            onClick={() => setChatActivity(u)}
-          >
-            <AvatarContainer>
-              <img
-                src={
-                  u?.avatar_url ||
-                  `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
-                }
-                alt={u.name}
-                width="40"
-                height="40"
-              />
-              {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
-            </AvatarContainer>
-            <section>
-              <NameUser>
-                <h1>{u.name}</h1>
-              </NameUser>
-              {typing && typing[u?.id] ? (
-                <small>Digitando...</small>
-              ) : (
-                <small>{getLastMessage(u)}</small>
-              )}
-            </section>
-          </Chat>
-        ))}
+        <TitleChats>Atendentes</TitleChats>
+        <TitleAttendant>Enfermeiros</TitleAttendant>
+        {users
+          .filter(u => u.clerk === 'enf')
+          .map(u => (
+            <Chat
+              active={chatActivity && u.id === chatActivity.id}
+              key={u.id}
+              onClick={() => setChatActivity(u)}
+            >
+              <AvatarContainer>
+                <img
+                  src={
+                    u?.avatar_url ||
+                    `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
+                  }
+                  alt={u.name}
+                  width="40"
+                  height="40"
+                />
+                {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+              </AvatarContainer>
+              <section>
+                <NameUser>
+                  <h1>{u.name}</h1>
+                </NameUser>
+                {typing && typing[u?.id] ? (
+                  <small>Digitando...</small>
+                ) : (
+                  <small>{getLastMessage(u)}</small>
+                )}
+              </section>
+            </Chat>
+          ))}
+        <TitleAttendant>Psicólogo</TitleAttendant>
+        {users
+          .filter(u => u.clerk === 'psic')
+          .map(u => (
+            <Chat
+              active={chatActivity && u.id === chatActivity.id}
+              key={u.id}
+              onClick={() => setChatActivity(u)}
+            >
+              <AvatarContainer>
+                <img
+                  src={
+                    u?.avatar_url ||
+                    `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
+                  }
+                  alt={u.name}
+                  width="40"
+                  height="40"
+                />
+                {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+              </AvatarContainer>
+              <section>
+                <NameUser>
+                  <h1>{u.name}</h1>
+                </NameUser>
+                {typing && typing[u?.id] ? (
+                  <small>Digitando...</small>
+                ) : (
+                  <small>{getLastMessage(u)}</small>
+                )}
+              </section>
+            </Chat>
+          ))}
       </ChatListContent>
     </Container>
   );

@@ -50,6 +50,34 @@ export const AnimationContainer = styled.div`
         color: ${shade(0.2, '#f4ede8')};
       }
     }
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 21px;
+      margin-right: 12px;
+      align-self: flex-start;
+      margin-top: 12px;
+      input {
+        margin-left: 12px;
+      }
+    }
+
+    select {
+      margin-top: 12px;
+      width: 100%;
+      border: 1px solid #777;
+      border-radius: 0.25em;
+      padding: 0.39em 0.5em;
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1.1;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      option {
+        background-color: #fff;
+        color: #333333;
+      }
+    }
   }
 
   > a {

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import { FiMail, FiUser, FiArrowLeft, FiLock } from 'react-icons/fi';
@@ -25,6 +25,15 @@ const SingnUp: React.FC = () => {
   const router = useRouter();
   const { addToast } = useToast();
 
+  const [attendant, setAttendant] = useState(false);
+  const [attendantType, setAttendantAtype] = useState('');
+
+  useEffect(() => {
+    if (attendant === false) {
+      setAttendantAtype('');
+    }
+  }, [attendant]);
+
   const hanleSingnUp = useCallback(
     async (data: { name: string; email: string; password: string }) => {
       try {
@@ -46,6 +55,7 @@ const SingnUp: React.FC = () => {
           name,
           email,
           password,
+          clerk: attendantType !== '' ? attendantType : null,
         });
 
         addToast({
@@ -69,7 +79,7 @@ const SingnUp: React.FC = () => {
         });
       }
     },
-    [addToast, router],
+    [addToast, router, attendantType],
   );
 
   return (
@@ -93,6 +103,28 @@ const SingnUp: React.FC = () => {
               name="password"
               icon={FiLock}
             />
+
+            <label htmlFor="attendant">
+              Atendente
+              <input
+                checked={attendant}
+                onChange={e => setAttendant(e.target.checked)}
+                type="checkbox"
+                id="attendant"
+                name="attendant"
+              />
+            </label>
+
+            {attendant && (
+              <select
+                onChange={e => setAttendantAtype(e.target.value)}
+                value={attendantType}
+              >
+                <option value="">Selecione um tipo</option>
+                <option value="enf">Enfermeiro(a)</option>
+                <option value="psic">Psicólogo(a)</option>
+              </select>
+            )}
 
             <Button type="submit">Cadatrar</Button>
           </Form>

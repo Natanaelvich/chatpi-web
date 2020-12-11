@@ -26,6 +26,13 @@ export const TitleChats = styled.h1`
   text-align: center;
   margin-bottom: 12px;
 `;
+export const TitleAttendant = styled.h2`
+  margin-bottom: 12px;
+  color: #89748a;
+  font-size: 16px;
+  margin-top: 24px;
+  margin-left: 24px;
+`;
 export const ChatList = styled.div`
   display: flex;
   flex-direction: column;

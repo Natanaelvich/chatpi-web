@@ -46,7 +46,7 @@ const ChatHome: React.FC = () => {
   useEffect(() => {
     async function getUsers() {
       try {
-        const response = await api.get('users');
+        const response = await api.get('attendantes');
 
         setUsers(response.data);
       } catch (error) {
