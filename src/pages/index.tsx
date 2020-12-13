@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { route } from 'next/dist/next-server/server/router';
 import {
   Container,
   Content,
@@ -20,6 +22,7 @@ import { useToast } from '../hooks/modules/ToastContext';
 
 export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
+  const router = useRouter();
 
   const [loading, setLoading] = useState(0);
 
@@ -45,6 +48,7 @@ export default function SingnIn() {
         const { email, password } = data;
 
         await signIn({ email, password });
+        router.push('/chat');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErros(error);
@@ -63,7 +67,7 @@ export default function SingnIn() {
         setLoading(0);
       }
     },
-    [signIn, addToast],
+    [signIn, addToast, router],
   );
 
   return (

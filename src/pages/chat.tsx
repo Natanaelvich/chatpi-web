@@ -28,6 +28,7 @@ import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import PrivateRoute from '@/components/PrivateRoute';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -127,11 +128,6 @@ const ChatHome: React.FC = () => {
     [messages, user],
   );
 
-  function logout(): void {
-    window.location.href = '/';
-    signOut();
-  }
-
   return (
     <Wrapper>
       <Header chatShow={chatActivity}>
@@ -156,7 +152,7 @@ const ChatHome: React.FC = () => {
             </div>
           </Profile>
 
-          <button type="button" onClick={logout}>
+          <button type="button" onClick={signOut}>
             <FiPower color="#fff" size={21} />
           </button>
         </HeaderContent>

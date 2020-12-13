@@ -1,11 +1,5 @@
 import { useRouter } from 'next/router';
-import React, {
-  createContext,
-  useCallback,
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../../services/api';
 
 interface SingnCredencials {
@@ -33,6 +27,8 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
+  const router = useRouter();
+
   const [data, setData] = useState<AuthState>(() => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('@GoBarber:token');
@@ -46,45 +42,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
     return {} as AuthState;
   });
-
-  const { pathname, events } = useRouter();
-
-  useEffect(() => {
-    if (pathname !== '/') {
-      if (
-        pathname === '/forgot_password' ||
-        pathname === '/reset_password' ||
-        pathname === '/singnup'
-      ) {
-        return;
-      }
-      if (!data.user) {
-        window.location.href = '/';
-      }
-    }
-
-    if (pathname === '/' && data.user) {
-      window.location.href = '/chat';
-    }
-
-    const handleRouteChange = url => {
-      if (
-        url === '/forgot_password' ||
-        url === '/reset_password' ||
-        url === '/singnup'
-      ) {
-        return;
-      }
-      if (url !== '/' && !data.user) {
-        window.location.href = '/';
-      }
-    };
-
-    events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [events, pathname, data.user]);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
@@ -103,12 +60,13 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
+    router.push('/');
     if (typeof window !== 'undefined') {
       localStorage.removeItem('@Gobarber:token');
       localStorage.removeItem('@Gobarber:user');
     }
     setData({} as AuthState);
-  }, []);
+  }, [router]);
 
   const updateUser = useCallback(
     (user: User) => {
