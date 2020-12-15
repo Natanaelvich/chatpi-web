@@ -62,10 +62,13 @@ export const AvatarInput = styled.div`
   margin-bottom: 32px;
   position: relative;
   align-self: center;
-  img {
+  div {
+    border-radius: 50%;
     width: 186px;
     height: 186px;
-    border-radius: 50%;
+    background-image: url(${props => props.bg});
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   label {
     position: absolute;

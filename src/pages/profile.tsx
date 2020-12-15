@@ -159,14 +159,13 @@ const Profile: React.FC = () => {
           }}
           onSubmit={handleSubmit}
         >
-          <AvatarInput>
-            <img
-              src={
-                user?.avatar_url ||
-                `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
-              }
-              alt={user?.name}
-            />
+          <AvatarInput
+            bg={
+              user?.avatar_url ||
+              `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
+            }
+          >
+            <div />
             <label htmlFor="avatar">
               <FiCamera />
 
