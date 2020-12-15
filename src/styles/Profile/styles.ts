@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+interface AvatarInputProps {
+  bg: string;
+}
+
 export const Container = styled.div`
   flex: 1;
   overflow: auto;
@@ -58,7 +62,7 @@ export const Content = styled.div`
   }
 `;
 
-export const AvatarInput = styled.div`
+export const AvatarInput = styled.div<AvatarInputProps>`
   margin-bottom: 32px;
   position: relative;
   align-self: center;
