@@ -27,6 +27,8 @@ interface ChatProps {
   typing: Record<string, any>;
   getLastMessage: Function;
   chatShow: Record<string, any>;
+  attendants: [];
+  messages: [];
 }
 
 const ChatList: React.FC<ChatProps> = ({
@@ -37,13 +39,50 @@ const ChatList: React.FC<ChatProps> = ({
   typing,
   getLastMessage,
   chatShow,
+  attendants,
+  messages,
 }) => {
   return (
     <Container chatShow={chatShow}>
       <ChatListContent>
+        {users
+          .filter(u => u.clerk === null)
+          .map(
+            u =>
+              messages.find(m => m.id === u.id) && (
+                <Chat
+                  active={chatActivity && u.id === chatActivity.id}
+                  key={u.id}
+                  onClick={() => setChatActivity(u)}
+                >
+                  <AvatarContainer>
+                    <img
+                      src={
+                        u?.avatar_url ||
+                        `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
+                      }
+                      alt={u.name}
+                      width="40"
+                      height="40"
+                    />
+                    {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+                  </AvatarContainer>
+                  <section>
+                    <NameUser>
+                      <h1>{u.name}</h1>
+                    </NameUser>
+                    {typing && typing[u?.id] ? (
+                      <small>Digitando...</small>
+                    ) : (
+                      <small>{getLastMessage(u)}</small>
+                    )}
+                  </section>
+                </Chat>
+              ),
+          )}
         <TitleChats>Atendentes</TitleChats>
         <TitleAttendant>Enfermeiros</TitleAttendant>
-        {users
+        {attendants
           .filter(u => u.clerk === 'enf')
           .map(u => (
             <Chat
@@ -76,7 +115,7 @@ const ChatList: React.FC<ChatProps> = ({
             </Chat>
           ))}
         <TitleAttendant>Psicólogo</TitleAttendant>
-        {users
+        {attendants
           .filter(u => u.clerk === 'psic')
           .map(u => (
             <Chat

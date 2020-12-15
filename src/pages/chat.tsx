@@ -38,6 +38,7 @@ const ChatHome: React.FC = () => {
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  const [attendants, setAttendantes] = useState([]);
   const [message, setMessage] = useState('');
   const [inputFocus, setInputFocus] = useState(false);
   const [chatActivity, setChatActivity] = useState(null);
@@ -47,9 +48,11 @@ const ChatHome: React.FC = () => {
   useEffect(() => {
     async function getUsers() {
       try {
-        const response = await api.get('attendantes');
+        const responseUser = await api.get('users');
+        const responseAttendantes = await api.get('attendantes');
 
-        setUsers(response.data);
+        setUsers(responseUser.data);
+        setAttendantes(responseAttendantes.data);
       } catch (error) {
         addToast({
           type: 'error',
@@ -71,7 +74,11 @@ const ChatHome: React.FC = () => {
   useEffect(() => {
     socket.on('message', messageSocket => {
       const messageParse = JSON.parse(messageSocket);
-      setMessages(oldMessages => [...oldMessages, messageParse]);
+
+      setMessages(oldMessages => [
+        ...oldMessages,
+        { ...messageParse, readed: false, id: messageParse.user },
+      ]);
     });
     socket.on('usersLoggeds', usersLoggedsSocket => {
       setUsersLoggeds(JSON.parse(usersLoggedsSocket));
@@ -88,6 +95,7 @@ const ChatHome: React.FC = () => {
         socket.emit(
           'message',
           JSON.stringify({
+            id: chatActivity.id,
             user: user?.id,
             toUser: chatActivity.id,
             message,
@@ -99,6 +107,7 @@ const ChatHome: React.FC = () => {
         setMessages(oldMessages => [
           ...oldMessages,
           {
+            id: chatActivity.id,
             user: user?.id,
             toUser: chatActivity.id,
             message,
@@ -163,8 +172,10 @@ const ChatHome: React.FC = () => {
           typing={typing}
           chatActivity={chatActivity}
           setChatActivity={setChatActivity}
-          users={users.filter(u => u.id !== user.id)}
+          attendants={attendants}
+          users={users}
           usersLoggeds={usersLoggeds}
+          messages={messages}
           getLastMessage={getLastMessage}
         />
         {chatActivity ? (
