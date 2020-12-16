@@ -32,6 +32,16 @@ import PrivateRoute from '@/components/PrivateRoute';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
+export interface MessageProps {
+  user: string | undefined;
+  toUser: string;
+  message: string;
+  readed: boolean;
+  id: string;
+  date: Date;
+  name?: string;
+}
+
 const ChatHome: React.FC = () => {
   const { user, signOut } = useAuth();
   const { addToast } = useToast();

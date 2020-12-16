@@ -1,5 +1,6 @@
 import { urls } from '@/constants';
 import { useAuth } from '@/hooks/modules/AuthContext';
+import { MessageProps } from '@/pages/chat';
 import React from 'react';
 import {
   Container,
@@ -23,14 +24,14 @@ interface User {
 
 interface ChatProps {
   users: User[];
+  attendants: User[];
   chatActivity: Record<string, any>;
   setChatActivity: Function;
   usersLoggeds: Record<string, any>;
   typing: Record<string, any>;
   getLastMessage: Function;
   chatShow: Record<string, any>;
-  attendants: [];
-  messages: [];
+  messages: MessageProps[];
   getMessagesNoReadedsArray: Function;
   setMessages: Function;
 }
