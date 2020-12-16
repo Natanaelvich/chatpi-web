@@ -47,6 +47,23 @@ export const CircleOnline = styled.div`
   bottom: 6px;
   right: 9px;
 `;
+export const CircleMessagesNoReads = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: #de595c;
+  margin-left: 6px;
+  position: absolute;
+  bottom: 2px;
+  left: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  small {
+    color: #fff;
+  }
+`;
 export const AvatarContainer = styled.div`
   position: relative;
 

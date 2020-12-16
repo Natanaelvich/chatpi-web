@@ -72,13 +72,61 @@ const ChatHome: React.FC = () => {
   }, [user]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const messagesStorage = localStorage.getItem(
+        `@GoBarber:messages:${user.id}`,
+      );
+      if (messagesStorage) {
+        setMessages(JSON.parse(messagesStorage));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    socket.on('messagesCache', (messagesCache: string) => {
+      const messagesParse = JSON.parse(messagesCache);
+      const messagesTemp = messagesParse.map(m => ({
+        ...m,
+        readed: false,
+        id: m.user,
+      }));
+      setMessages(oldMessages => {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(
+            `@GoBarber:messages:${user.id}`,
+            JSON.stringify([...oldMessages, ...messagesTemp]),
+          );
+        }
+
+        return [...oldMessages, ...messagesTemp];
+      });
+    });
     socket.on('message', messageSocket => {
       const messageParse = JSON.parse(messageSocket);
 
-      setMessages(oldMessages => [
-        ...oldMessages,
-        { ...messageParse, readed: false, id: messageParse.user },
-      ]);
+      setMessages(oldMessages => {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(
+            `@GoBarber:messages:${user.id}`,
+            JSON.stringify([
+              ...oldMessages,
+              {
+                ...messageParse,
+                readed: chatActivity.id === messageParse.user,
+                id: messageParse.user,
+              },
+            ]),
+          );
+        }
+        return [
+          ...oldMessages,
+          {
+            ...messageParse,
+            readed: chatActivity.id === messageParse.user,
+            id: messageParse.user,
+          },
+        ];
+      });
     });
     socket.on('usersLoggeds', usersLoggedsSocket => {
       setUsersLoggeds(JSON.parse(usersLoggedsSocket));
@@ -86,36 +134,35 @@ const ChatHome: React.FC = () => {
     socket.on('typing', typingSocket => {
       setTyping(JSON.parse(typingSocket));
     });
-  }, [socket]);
+  }, [socket, user, chatActivity]);
 
   const sendMessage = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
+      const messageTemp = {
+        id: chatActivity.id,
+        user: user?.id,
+        toUser: chatActivity.id,
+        message,
+        readed: false,
+        date: new Date(),
+        name: user.name,
+      };
       if (chatActivity) {
-        socket.emit(
-          'message',
-          JSON.stringify({
-            id: chatActivity.id,
-            user: user?.id,
-            toUser: chatActivity.id,
-            message,
-            readed: false,
-            date: new Date(),
-            name: user.name,
-          }),
-        );
-        setMessages(oldMessages => [
-          ...oldMessages,
-          {
-            id: chatActivity.id,
-            user: user?.id,
-            toUser: chatActivity.id,
-            message,
-            readed: true,
-            date: new Date(),
-            name: user.name,
-          },
-        ]);
+        socket.emit('message', JSON.stringify(messageTemp));
+        setMessages(oldMessages => {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem(
+              `@GoBarber:messages:${user.id}`,
+              JSON.stringify([
+                ...oldMessages,
+                { ...messageTemp, readed: true },
+              ]),
+            );
+          }
+          return [...oldMessages, { ...messageTemp, readed: true }];
+        });
+
         setMessage('');
       }
     },
@@ -137,6 +184,15 @@ const ChatHome: React.FC = () => {
     [messages, user],
   );
 
+  const getMessagesNoReadedsArray = useCallback(
+    attendant => {
+      const messagesUser = messages
+        .filter(m => m.id === attendant.id)
+        .filter(m => m.readed === false);
+      return messagesUser;
+    },
+    [messages],
+  );
   return (
     <Wrapper>
       <Header chatShow={chatActivity}>
@@ -177,6 +233,8 @@ const ChatHome: React.FC = () => {
           usersLoggeds={usersLoggeds}
           messages={messages}
           getLastMessage={getLastMessage}
+          setMessages={setMessages}
+          getMessagesNoReadedsArray={getMessagesNoReadedsArray}
         />
         {chatActivity ? (
           <Chat>

@@ -1,4 +1,5 @@
 import { urls } from '@/constants';
+import { useAuth } from '@/hooks/modules/AuthContext';
 import React from 'react';
 import {
   Container,
@@ -9,6 +10,7 @@ import {
   NameUser,
   AvatarContainer,
   TitleAttendant,
+  CircleMessagesNoReads,
 } from './styles';
 
 interface User {
@@ -29,6 +31,8 @@ interface ChatProps {
   chatShow: Record<string, any>;
   attendants: [];
   messages: [];
+  getMessagesNoReadedsArray: Function;
+  setMessages: Function;
 }
 
 const ChatList: React.FC<ChatProps> = ({
@@ -41,7 +45,28 @@ const ChatList: React.FC<ChatProps> = ({
   chatShow,
   attendants,
   messages,
+  getMessagesNoReadedsArray,
+  setMessages,
 }) => {
+  const { user } = useAuth();
+
+  function readyMessages(u) {
+    const messagesReadeds = messages.map(m =>
+      m.id === u.id
+        ? {
+            ...m,
+            readed: true,
+          }
+        : m,
+    );
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(
+        `@GoBarber:messages:${user.id}`,
+        JSON.stringify(messagesReadeds),
+      );
+    }
+    setMessages(messagesReadeds);
+  }
   return (
     <Container chatShow={chatShow}>
       <ChatListContent>
@@ -53,7 +78,10 @@ const ChatList: React.FC<ChatProps> = ({
                 <Chat
                   active={chatActivity && u.id === chatActivity.id}
                   key={u.id}
-                  onClick={() => setChatActivity(u)}
+                  onClick={() => {
+                    setChatActivity(u);
+                    readyMessages(u);
+                  }}
                 >
                   <AvatarContainer>
                     <img
@@ -66,6 +94,11 @@ const ChatList: React.FC<ChatProps> = ({
                       height="40"
                     />
                     {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+                    {getMessagesNoReadedsArray(u).length > 0 && (
+                      <CircleMessagesNoReads>
+                        <small>{getMessagesNoReadedsArray(u).length}</small>
+                      </CircleMessagesNoReads>
+                    )}
                   </AvatarContainer>
                   <section>
                     <NameUser>
@@ -88,7 +121,10 @@ const ChatList: React.FC<ChatProps> = ({
             <Chat
               active={chatActivity && u.id === chatActivity.id}
               key={u.id}
-              onClick={() => setChatActivity(u)}
+              onClick={() => {
+                readyMessages(u);
+                setChatActivity(u);
+              }}
             >
               <AvatarContainer>
                 <img
@@ -101,6 +137,11 @@ const ChatList: React.FC<ChatProps> = ({
                   height="40"
                 />
                 {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+                {getMessagesNoReadedsArray(u).length > 0 && (
+                  <CircleMessagesNoReads>
+                    <small>{getMessagesNoReadedsArray(u).length}</small>
+                  </CircleMessagesNoReads>
+                )}
               </AvatarContainer>
               <section>
                 <NameUser>
@@ -121,7 +162,10 @@ const ChatList: React.FC<ChatProps> = ({
             <Chat
               active={chatActivity && u.id === chatActivity.id}
               key={u.id}
-              onClick={() => setChatActivity(u)}
+              onClick={() => {
+                readyMessages(u);
+                setChatActivity(u);
+              }}
             >
               <AvatarContainer>
                 <img
@@ -134,6 +178,11 @@ const ChatList: React.FC<ChatProps> = ({
                   height="40"
                 />
                 {usersLoggeds && usersLoggeds[u?.id] && <CircleOnline />}
+                {getMessagesNoReadedsArray(u).length > 0 && (
+                  <CircleMessagesNoReads>
+                    <small>{getMessagesNoReadedsArray(u).length}</small>
+                  </CircleMessagesNoReads>
+                )}
               </AvatarContainer>
               <section>
                 <NameUser>
