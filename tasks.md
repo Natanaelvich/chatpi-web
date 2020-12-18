@@ -1,8 +1,11 @@
 ## bugs
 
+- [ ] erro no logout
+- [ ] erro na tela do outro usuario quando manda mensagens
+
 ## features
 
-- [ ] atualizar foto de perfil
+- [x] atualizar foto de perfil
 
 ## config app web
 

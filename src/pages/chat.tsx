@@ -122,7 +122,7 @@ const ChatHome: React.FC = () => {
               ...oldMessages,
               {
                 ...messageParse,
-                readed: chatActivity.id === messageParse.user,
+                readed: chatActivity?.id === messageParse.user,
                 id: messageParse.user,
               },
             ]),
@@ -132,7 +132,7 @@ const ChatHome: React.FC = () => {
           ...oldMessages,
           {
             ...messageParse,
-            readed: chatActivity.id === messageParse.user,
+            readed: chatActivity?.id === messageParse.user,
             id: messageParse.user,
           },
         ];
