@@ -122,7 +122,10 @@ const ChatHome: React.FC = () => {
               ...oldMessages,
               {
                 ...messageParse,
-                readed: chatActivity?.id === messageParse.user,
+                // readed: chatActivity?.id
+                //   ? chatActivity.id === messageParse.user
+                //   : false,
+                readed: false,
                 id: messageParse.user,
               },
             ]),
@@ -132,7 +135,10 @@ const ChatHome: React.FC = () => {
           ...oldMessages,
           {
             ...messageParse,
-            readed: chatActivity?.id === messageParse.user,
+            // readed: chatActivity?.id
+            //   ? chatActivity.id === messageParse.user
+            //   : false,
+            readed: false,
             id: messageParse.user,
           },
         ];
@@ -144,7 +150,7 @@ const ChatHome: React.FC = () => {
     socket.on('typing', typingSocket => {
       setTyping(JSON.parse(typingSocket));
     });
-  }, [socket, user, chatActivity]);
+  }, [socket, user]);
 
   const sendMessage = useCallback(
     (e: FormEvent) => {
