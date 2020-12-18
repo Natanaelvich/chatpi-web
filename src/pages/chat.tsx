@@ -42,7 +42,7 @@ export interface MessageProps {
   name?: string;
 }
 
-const ChatHome: React.FC = () => {
+function ChatHome() {
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
 
@@ -267,9 +267,10 @@ const ChatHome: React.FC = () => {
                   )}
                 </div>
                 <img
-                  src={`${urls[process.env.NODE_ENV]}/myAvatars/${
-                    chatActivity.id
-                  }`}
+                  src={
+                    chatActivity?.avatar_url ||
+                    `${urls[process.env.NODE_ENV]}/myAvatars/${chatActivity.id}`
+                  }
                   alt={chatActivity.name}
                   width="40"
                   height="40"
@@ -335,6 +336,45 @@ const ChatHome: React.FC = () => {
       </Container>
     </Wrapper>
   );
-};
+}
+
+// ChatHome.getInitialProps = async ({ req, res }) => {
+//   try {
+//     // const user = await Auth.currentAuthenticatedUser()
+//     // if (token && user) {
+//     //   console.log(token, user);
+//     // }
+//     return { stars: 'json.stargazers_count' };
+//   } catch (err) {
+//     console.log(err);
+//     res.writeHead(302, { Location: '/' });
+//     res.end();
+//   }
+//   return { stars: 'json.stargazers_count' };
+// };
+
+// // export async function getServerSideProps(ctx,{ req, res }) {
+// //   console.log(ctx)
+// //   try {
+// //     // const user = await Auth.currentAuthenticatedUser()
+// //     const token = localStorage.getItem('@GoBarber:token');
+// //     const user = localStorage.getItem('@Gobarber:user');
+
+// //     if (token && user) {
+// //       console.log(token, user);
+// //     }
+// //     return {
+// //       props: {
+// //         authenticated: true,
+// //         username: ' user.username',
+// //       },
+// //     };
+// //   } catch (err) {
+// //     console.log(err);
+// //     res.writeHead(302, { Location: '/' });
+// //     res.end();
+// //   }
+// //   return { props: {} };
+// // }
 
 export default ChatHome;
