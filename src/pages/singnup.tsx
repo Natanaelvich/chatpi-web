@@ -85,7 +85,7 @@ const SingnUp: React.FC = () => {
   return (
     <Container>
       <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={440} />
+        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
       </BackGround>
       <Content>
         <AnimationContainer>
