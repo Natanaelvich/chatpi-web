@@ -6,6 +6,11 @@
 
 ## ScreenShots
 
+<p align='center'>
+<img src='https://user-images.githubusercontent.com/52014318/104670232-3a7b5880-56ba-11eb-9647-0c35d82a9a98.png' />
+<img src='https://user-images.githubusercontent.com/52014318/104670277-49faa180-56ba-11eb-86dc-d4954dfc2c01.png' />
+<img src='https://user-images.githubusercontent.com/52014318/104670304-54b53680-56ba-11eb-80e4-085fd904edbc.png' />
+</p>
 
 ## Install
 
