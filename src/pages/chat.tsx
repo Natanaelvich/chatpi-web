@@ -27,10 +27,12 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PrivateRoute from '@/components/PrivateRoute';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
+
+const login = '/';
 
 export interface MessageProps {
   user: string | undefined;
@@ -338,43 +340,54 @@ function ChatHome() {
   );
 }
 
-// ChatHome.getInitialProps = async ({ req, res }) => {
+function getUserStorage() {
+  const user = localStorage.getItem('@Gobarber:user');
+
+  return user;
+}
+
+ChatHome.getInitialProps = async ctx => {
+  if (typeof window !== 'undefined') {
+    const user = getUserStorage();
+
+    console.log(user);
+    // if (ctx.res) {
+    //   ctx.res?.writeHead(302, {
+    //     Location: login,
+    //   });
+    //   ctx.res?.end();
+    // } else {
+    //   Router.replace(login);
+    // }
+    if (!user) {
+      Router.replace(login);
+    }
+  }
+  return { stars: 'json.stargazers_count' };
+};
+
+// export async function getServerSideProps(ctx,{ req, res }) {
+//   console.log(ctx)
 //   try {
 //     // const user = await Auth.currentAuthenticatedUser()
-//     // if (token && user) {
-//     //   console.log(token, user);
-//     // }
-//     return { stars: 'json.stargazers_count' };
+//     const token = localStorage.getItem('@GoBarber:token');
+//     const user = localStorage.getItem('@Gobarber:user');
+
+//     if (token && user) {
+//       console.log(token, user);
+//     }
+//     return {
+//       props: {
+//         authenticated: true,
+//         username: ' user.username',
+//       },
+//     };
 //   } catch (err) {
 //     console.log(err);
 //     res.writeHead(302, { Location: '/' });
 //     res.end();
 //   }
-//   return { stars: 'json.stargazers_count' };
-// };
-
-// // export async function getServerSideProps(ctx,{ req, res }) {
-// //   console.log(ctx)
-// //   try {
-// //     // const user = await Auth.currentAuthenticatedUser()
-// //     const token = localStorage.getItem('@GoBarber:token');
-// //     const user = localStorage.getItem('@Gobarber:user');
-
-// //     if (token && user) {
-// //       console.log(token, user);
-// //     }
-// //     return {
-// //       props: {
-// //         authenticated: true,
-// //         username: ' user.username',
-// //       },
-// //     };
-// //   } catch (err) {
-// //     console.log(err);
-// //     res.writeHead(302, { Location: '/' });
-// //     res.end();
-// //   }
-// //   return { props: {} };
-// // }
+//   return { props: {} };
+// }
 
 export default ChatHome;
