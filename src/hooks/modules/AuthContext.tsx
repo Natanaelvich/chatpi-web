@@ -1,11 +1,5 @@
 import { useRouter } from 'next/router';
-import React, {
-  createContext,
-  useCallback,
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../../services/api';
 
 interface SingnCredencials {
@@ -66,11 +60,15 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    router.push('/');
     if (typeof window !== 'undefined') {
       localStorage.removeItem('@Gobarber:token');
       localStorage.removeItem('@Gobarber:user');
     }
+    setData({
+      token: null,
+      user: null,
+    });
+    router.push('/');
   }, [router]);
 
   const updateUser = useCallback(
