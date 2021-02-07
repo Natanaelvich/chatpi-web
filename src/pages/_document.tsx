@@ -1,4 +1,3 @@
-import Seo from '@/components/Seo';
 import Document, {
   DocumentContext,
   Head,
@@ -50,71 +49,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
-
-          <title>Chat PI</title>
-          <meta name="title" content="Chat PI" />
-          <meta
-            name="description"
-            content="Projeto integrador ADS 4º período Unifacema 2020."
-          />
-
-          {/* my config */}
-          <meta
-            name="image"
-            content="https://mundotech.s3.amazonaws.com/seo.png"
-          />
-          <meta name="robots" content="noindex" />
-          <link rel="canonical" href="https://pi-unifacema.vercel.app/" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta httpEquiv="x-ua-compatible" content="IE=edge,chrome=1" />
-          <meta name="MobileOptimized" content="320" />
-          <meta name="HandheldFriendly" content="True" />
-          <meta name="theme-color" content="#ff008e" />
-          <meta name="referrer" content="no-referrer-when-downgrade" />
-          <meta name="msapplication-TileColor" content="#ff008e" />
-          <meta name="google" content="notranslate" />
-
-          <meta property="og:url" content="https://pi-unifacema.vercel.app/" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="Chat PI" />
-          <meta
-            property="og:description"
-            content="Projeto integrador ADS 4º período Unifacema 2020."
-          />
-          <meta property="og:locale" content="pt_BR" />
-          <meta property="og:site_name" content="Chat PI" />
-          <meta
-            property="og:image"
-            content="https://mundotech.s3.amazonaws.com/seo.png"
-          />
-          <meta
-            property="og:image:secure_url"
-            content="https://mundotech.s3.amazonaws.com/seo.png"
-          />
-          <meta property="og:image:alt" content="Boost yourself" />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="" />
-          <meta name="twitter:site" content="@natanaelvich" />
-          <meta name="twitter:creator" content="@natanaelvich" />
-          <meta
-            name="twitter:image"
-            content="https://mundotech.s3.amazonaws.com/seo.png"
-          />
-          <meta
-            name="twitter:image:src"
-            content="https://mundotech.s3.amazonaws.com/seo.png"
-          />
-          <meta name="twitter:image:alt" content="Boost yourself" />
-          <meta name="twitter:image:width" content="1200" />
-          <meta name="twitter:image:height" content="630" />
-
-          {/* my config */}
         </Head>
-
         <body>
           <Main />
           <NextScript />
