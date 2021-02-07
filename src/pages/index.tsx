@@ -81,7 +81,7 @@ export default function SingnIn() {
   return (
     <Container>
       <Seo
-        title="ChatPI"
+        title="Bem vindo"
         description="Projeto integrador ADS 4º período Unifacema 2020."
         shouldIndexPage
         image="Seo.png"
