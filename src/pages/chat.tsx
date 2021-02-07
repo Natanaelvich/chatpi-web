@@ -17,7 +17,6 @@ import {
 } from '@/styles/Chat/styles';
 import React, {
   FormEvent,
-  KeyboardEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -27,12 +26,10 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
-import Router, { useRouter } from 'next/router';
-import PrivateRoute from '@/components/PrivateRoute';
+import LoadingPage from '@/components/LoadingPage';
+import Seo from '@/components/Seo';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
-
-const login = '/';
 
 export interface MessageProps {
   user: string | undefined;
@@ -211,8 +208,17 @@ function ChatHome() {
     },
     [messages],
   );
+
+  if (!user) {
+    if (typeof window !== 'undefined') {
+      window.location.pathname = '/';
+      return <LoadingPage />;
+    }
+  }
+
   return (
     <Wrapper>
+      <Seo title="Dashboard" shouldIndexPage={false} />
       <Header chatShow={chatActivity}>
         <HeaderContent>
           <Image src="/Logo.png" alt="Chat PI" width={80} height={77} />
@@ -339,55 +345,5 @@ function ChatHome() {
     </Wrapper>
   );
 }
-
-function getUserStorage() {
-  const user = localStorage.getItem('@Gobarber:user');
-
-  return user;
-}
-
-ChatHome.getInitialProps = async ctx => {
-  if (typeof window !== 'undefined') {
-    const user = getUserStorage();
-
-    console.log(user);
-    // if (ctx.res) {
-    //   ctx.res?.writeHead(302, {
-    //     Location: login,
-    //   });
-    //   ctx.res?.end();
-    // } else {
-    //   Router.replace(login);
-    // }
-    if (!user) {
-      Router.replace(login);
-    }
-  }
-  return { stars: 'json.stargazers_count' };
-};
-
-// export async function getServerSideProps(ctx,{ req, res }) {
-//   console.log(ctx)
-//   try {
-//     // const user = await Auth.currentAuthenticatedUser()
-//     const token = localStorage.getItem('@GoBarber:token');
-//     const user = localStorage.getItem('@Gobarber:user');
-
-//     if (token && user) {
-//       console.log(token, user);
-//     }
-//     return {
-//       props: {
-//         authenticated: true,
-//         username: ' user.username',
-//       },
-//     };
-//   } catch (err) {
-//     console.log(err);
-//     res.writeHead(302, { Location: '/' });
-//     res.end();
-//   }
-//   return { props: {} };
-// }
 
 export default ChatHome;

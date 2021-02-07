@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import { urls } from '@/constants';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import LoadingPage from '@/components/LoadingPage';
+import Seo from '@/components/Seo';
 import api from '../services/api';
 
 import { useToast } from '../hooks/modules/ToastContext';
@@ -138,8 +140,16 @@ const Profile: React.FC = () => {
     [addToast, updateUser],
   );
 
+  if (!user) {
+    if (typeof window !== 'undefined') {
+      window.location.pathname = '/';
+      return <LoadingPage />;
+    }
+  }
+
   return (
     <Container>
+      <Seo title="Perfil" shouldIndexPage={false} />
       <header>
         <div>
           <Link href="/chat">

@@ -6,7 +6,8 @@ import { FormHandles } from '@unform/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { route } from 'next/dist/next-server/server/router';
+import LoadingPage from '@/components/LoadingPage';
+import Seo from '@/components/Seo';
 import {
   Container,
   Content,
@@ -24,10 +25,10 @@ export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
   const router = useRouter();
 
-  const [loading, setLoading] = useState(0);
-
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
   const { addToast } = useToast();
+
+  const [loading, setLoading] = useState(0);
 
   const hanleSingnIn = useCallback(
     async (data: { email: string; password: string }) => {
@@ -70,8 +71,21 @@ export default function SingnIn() {
     [signIn, addToast, router],
   );
 
+  if (user) {
+    if (typeof window !== 'undefined') {
+      window.location.pathname = '/chat';
+      return <LoadingPage />;
+    }
+  }
+
   return (
     <Container>
+      <Seo
+        title="ChatPI"
+        description="Projeto integrador ADS 4º período Unifacema 2020."
+        shouldIndexPage
+        image="Seo.png"
+      />
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
