@@ -143,8 +143,8 @@ const Profile: React.FC = () => {
   if (!user) {
     if (typeof window !== 'undefined') {
       window.location.pathname = '/';
+      return <LoadingPage />;
     }
-    return <LoadingPage />;
   }
 
   return (

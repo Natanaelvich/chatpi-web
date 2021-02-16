@@ -74,8 +74,8 @@ export default function SingnIn() {
   if (user) {
     if (typeof window !== 'undefined') {
       window.location.pathname = '/chat';
+      return <LoadingPage />;
     }
-    return <LoadingPage />;
   }
 
   return (
