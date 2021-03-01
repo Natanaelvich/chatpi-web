@@ -84,7 +84,7 @@ export default function SingnIn() {
         title="Bem vindo"
         description="Projeto integrador ADS 4º período Unifacema 2020."
         shouldIndexPage
-        image="Seo1.png"
+        image="Seo.png"
       />
       <Content>
         <AnimationContainer>

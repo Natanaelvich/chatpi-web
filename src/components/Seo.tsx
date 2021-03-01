@@ -19,7 +19,7 @@ export default function SEO({
   const pageImage = image
     ? `${process.env.NEXT_PUBLIC_WEB_URL}/${image}`
     : null;
-  const pageImage2 = `${process.env.NEXT_PUBLIC_WEB_URL}Seo.png`;
+  const pageImageSmall = `${process.env.NEXT_PUBLIC_WEB_URL}SeoSmall.png`;
   return (
     <Head>
       <title>{pageTitle}</title>
@@ -50,7 +50,7 @@ export default function SEO({
       <meta name="twitter:image:width" content="1200" />
       <meta name="twitter:image:height" content="620" />
 
-      <meta property="og:image" itemProp="image" content={pageImage2} />
+      <meta property="og:image" itemProp="image" content={pageImageSmall} />
       <meta property="og:type" content="website" />
       <meta property="og:updated_time" content="1440432930" />
     </Head>
