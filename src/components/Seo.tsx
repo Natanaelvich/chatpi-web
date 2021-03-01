@@ -19,7 +19,7 @@ export default function SEO({
   const pageImage = image
     ? `${process.env.NEXT_PUBLIC_WEB_URL}/${image}`
     : null;
-  const pageImage2 = `${process.env.NEXT_PUBLIC_WEB_URL}/Seo.png`;
+  const pageImage2 = `${process.env.NEXT_PUBLIC_WEB_URL}Seo.png`;
   return (
     <Head>
       <title>{pageTitle}</title>
@@ -38,14 +38,7 @@ export default function SEO({
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:locale" content="pt_BR" />
-      <meta property="og:type" content="website" />
       <meta property="og:site_name" content={pageTitle} />
-      <meta property="og:image" content={pageImage} />
-      <meta property="og:image:secure_url" content={pageImage} />
-      <meta property="og:image:alt" content="Thumbnail" />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
 
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:card" content="summary_large_image" />
@@ -57,9 +50,6 @@ export default function SEO({
       <meta name="twitter:image:width" content="1200" />
       <meta name="twitter:image:height" content="620" />
 
-      <meta property="og:site_name" content="San Roque 2014 Pollos" />
-      <meta property="og:title" content="San Roque 2014 Pollos" />
-      <meta property="og:description" content="Programa de fiestas" />
       <meta property="og:image" itemProp="image" content={pageImage2} />
       <meta property="og:type" content="website" />
       <meta property="og:updated_time" content="1440432930" />
