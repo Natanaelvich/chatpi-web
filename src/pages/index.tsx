@@ -84,7 +84,7 @@ export default function SingnIn() {
         title="Bem vindo"
         description="Projeto integrador ADS 4º período Unifacema 2020."
         shouldIndexPage
-        image="Seo.png"
+        image="Seo1.png"
       />
       <Content>
         <AnimationContainer>
@@ -105,11 +105,11 @@ export default function SingnIn() {
             <Button loading={loading} type="submit">
               Entrar
             </Button>
-            <Link href="forgot_password">
+            <Link href="/forgot_password">
               <a>Esqueci minha senha</a>
             </Link>
           </Form>
-          <Link href="singnup">
+          <Link href="/singnup">
             <a>
               <FiLogIn />
               Criar conta
