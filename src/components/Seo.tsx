@@ -50,9 +50,34 @@ export default function SEO({
       <meta name="twitter:image:width" content="1200" />
       <meta name="twitter:image:height" content="620" />
 
-      <meta property="og:image" itemProp="image" content={pageImageSmall} />
+      <meta
+        property="og:image"
+        itemProp="image"
+        content="https://mundotech.s3.amazonaws.com/SeoSmall.png"
+      />
       <meta property="og:type" content="website" />
-      <meta property="og:updated_time" content="1440432930" />
+      {/* <meta property="og:updated_time" content="1440432930" /> */}
+
+      {/* A full image example:
+
+      <meta property="og:image" content="https://example.com/ogp.jpg" />
+      <meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" />
+      <meta property="og:image:type" content="image/jpeg" />
+      <meta property="og:image:width" content="400" />
+      <meta property="og:image:height" content="300" />
+      <meta property="og:image:alt" content="A shiny red apple with a bite taken out" />
+      The og:video tag has the identical tags as og:image. Here is an example:
+
+      <meta property="og:video" content="https://example.com/movie.swf" />
+      <meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" />
+      <meta property="og:video:type" content="application/x-shockwave-flash" />
+      <meta property="og:video:width" content="400" />
+      <meta property="og:video:height" content="300" />
+      The og:audio tag only has the first 3 properties available (since size doesn't make sense for sound):
+
+      <meta property="og:audio" content="https://example.com/sound.mp3" />
+      <meta property="og:audio:secure_url" content="https://secure.example.com/sound.mp3" />
+      <meta property="og:audio:type" content="audio/mpeg" /> */}
     </Head>
   );
 }
