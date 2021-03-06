@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import Cookies from 'js-cookie';
 import api from '../../services/api';
 
 interface SingnCredencials {
@@ -31,8 +32,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const [data, setData] = useState<AuthState>(() => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('@GoBarber:token');
-      const user = localStorage.getItem('@Gobarber:user');
+      const token = Cookies.get('GoBarbertoken');
+      const user = Cookies.get('Gobarberuser');
 
       if (token && user) {
         api.defaults.headers.authorization = `Bearer ${token}`;
@@ -51,32 +52,28 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('@GoBarber:token', token);
-      localStorage.setItem('@Gobarber:user', JSON.stringify(user));
-    }
+    Cookies.set('GoBarbertoken', String(token));
+    Cookies.set('Gobarberuser', JSON.stringify(user));
+
     api.defaults.headers.authorization = `Bearer ${token}`;
     setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('@Gobarber:token');
-      localStorage.removeItem('@Gobarber:user');
-    }
+    Cookies.remove('GoBarbertoken');
+    Cookies.remove('Gobarberuser');
+
     setData({
       token: null,
       user: null,
     });
+
     router.push('/');
   }, [router]);
 
   const updateUser = useCallback(
     (user: User) => {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('@Gobarber:user', JSON.stringify(user));
-      }
-
+      Cookies.set('Gobarberuser', JSON.stringify(user));
       setData({
         token: data.token,
         user,
