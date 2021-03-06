@@ -25,9 +25,8 @@ import React, {
 import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
-import Image from 'next/image';
-import LoadingPage from '@/components/LoadingPage';
 import Seo from '@/components/Seo';
+import { GetServerSideProps } from 'next';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -41,7 +40,11 @@ export interface MessageProps {
   name?: string;
 }
 
-function ChatHome() {
+interface ChatHomeProps {
+  data: { GoBarbertoken: string; Gobarberuser: string };
+}
+
+export default function ChatHome({ data }: ChatHomeProps) {
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
 
@@ -209,19 +212,12 @@ function ChatHome() {
     [messages],
   );
 
-  if (!user) {
-    if (typeof window !== 'undefined') {
-      window.location.pathname = '/';
-      return <LoadingPage />;
-    }
-  }
-
   return (
     <Wrapper>
       <Seo title="Dashboard" shouldIndexPage={false} />
       <Header chatShow={chatActivity}>
         <HeaderContent>
-          <Image src="/Logo.png" alt="Chat PI" width={80} height={77} />
+          <img src="/Logo.png" alt="Chat PI" width={80} height={77} />
 
           <Profile>
             <img
@@ -346,4 +342,18 @@ function ChatHome() {
   );
 }
 
-export default ChatHome;
+export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
+  req,
+  res,
+}) => {
+  const { GoBarbertoken, Gobarberuser } = req.cookies;
+
+  if (!GoBarbertoken) {
+    res.writeHead(302, { Location: '/' }).end();
+  }
+  return {
+    props: {
+      data: { GoBarbertoken, Gobarberuser },
+    },
+  };
+};

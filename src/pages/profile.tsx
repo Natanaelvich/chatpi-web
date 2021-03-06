@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import LoadingPage from '@/components/LoadingPage';
 import Seo from '@/components/Seo';
+import { GetServerSideProps } from 'next';
 import api from '../services/api';
 
 import { useToast } from '../hooks/modules/ToastContext';
@@ -20,6 +21,10 @@ import { Container, Content, AvatarInput } from '../styles/Profile/styles';
 import { useAuth } from '../hooks/modules/AuthContext';
 import getValidationErros from '../utils/getValidationErros';
 
+interface ProfileProps {
+  data: { GoBarbertoken: string; Gobarberuser: string };
+}
+
 interface ProfileFormData {
   name: string;
   email: string;
@@ -28,7 +33,7 @@ interface ProfileFormData {
   password_confirmation: string;
 }
 
-const Profile: React.FC = () => {
+export default function Profile() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const router = useRouter();
@@ -217,6 +222,20 @@ const Profile: React.FC = () => {
       </Content>
     </Container>
   );
-};
+}
 
-export default Profile;
+export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
+  req,
+  res,
+}) => {
+  const { GoBarbertoken, Gobarberuser } = req.cookies;
+
+  if (!GoBarbertoken) {
+    res.writeHead(302, { Location: '/' }).end();
+  }
+  return {
+    props: {
+      data: { GoBarbertoken, Gobarberuser },
+    },
+  };
+};

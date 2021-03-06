@@ -4,10 +4,9 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import LoadingPage from '@/components/LoadingPage';
 import Seo from '@/components/Seo';
+import { GetServerSideProps } from 'next';
 import {
   Container,
   Content,
@@ -24,7 +23,6 @@ import { useToast } from '../hooks/modules/ToastContext';
 export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
   const router = useRouter();
-
   const { signIn, user } = useAuth();
   const { addToast } = useToast();
 
@@ -71,13 +69,6 @@ export default function SingnIn() {
     [signIn, addToast, router],
   );
 
-  if (user) {
-    if (typeof window !== 'undefined') {
-      window.location.pathname = '/chat';
-      return <LoadingPage />;
-    }
-  }
-
   return (
     <Container>
       <Seo
@@ -90,7 +81,7 @@ export default function SingnIn() {
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
             <Logo>
-              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
+              <img src="/Logo.png" alt="Chat PI" width={165} height={160} />
             </Logo>
             <h1>Chat PI</h1>
 
@@ -118,8 +109,20 @@ export default function SingnIn() {
         </AnimationContainer>
       </Content>
       <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
+        <img src="/Logo.png" alt="Chat PI" width={620} height={600} />
       </BackGround>
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const { GoBarbertoken } = req.cookies;
+  if (GoBarbertoken) {
+    res.writeHead(302, { Location: '/chat' }).end();
+  }
+  return {
+    props: {
+      data: null,
+    },
+  };
+};
