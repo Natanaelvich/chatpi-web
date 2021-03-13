@@ -7,7 +7,7 @@ const LoadingPage: React.FC = () => {
   return (
     <Container>
       <Logo>
-        <img src="/Logo.png" alt="Chat PI" width={165} height={160} />
+        <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
       </Logo>
     </Container>
   );

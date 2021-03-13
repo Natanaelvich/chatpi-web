@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Seo from '@/components/Seo';
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import LoadingPage from '@/components/LoadingPage';
 import {
   Container,
   Content,
@@ -81,7 +83,7 @@ export default function SingnIn() {
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
             <Logo>
-              <img src="/Logo.png" alt="Chat PI" width={165} height={160} />
+              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
             </Logo>
             <h1>Chat PI</h1>
 
@@ -109,7 +111,7 @@ export default function SingnIn() {
         </AnimationContainer>
       </Content>
       <BackGround>
-        <img src="/Logo.png" alt="Chat PI" width={620} height={600} />
+        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
       </BackGround>
     </Container>
   );
