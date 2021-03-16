@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import { urls } from '@/constants';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import LoadingPage from '@/components/LoadingPage';
 import Seo from '@/components/Seo';
 import { GetServerSideProps } from 'next';
 import api from '../services/api';
@@ -22,7 +21,7 @@ import { useAuth } from '../hooks/modules/AuthContext';
 import getValidationErros from '../utils/getValidationErros';
 
 interface ProfileProps {
-  data: { GoBarbertoken: string; Gobarberuser: string };
+  Gobarberuser: string;
 }
 
 interface ProfileFormData {
@@ -33,10 +32,12 @@ interface ProfileFormData {
   password_confirmation: string;
 }
 
-export default function Profile() {
+export default function Profile({ Gobarberuser }) {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const router = useRouter();
+
+  const userParser = JSON.parse(Gobarberuser);
 
   const [loading, setLoading] = useState(0);
 
@@ -145,16 +146,9 @@ export default function Profile() {
     [addToast, updateUser],
   );
 
-  if (!user) {
-    if (typeof window !== 'undefined') {
-      window.location.pathname = '/';
-      return <LoadingPage />;
-    }
-  }
-
   return (
     <Container>
-      <Seo title="Perfil" shouldIndexPage={false} />
+      <Seo title={userParser?.name || 'Perfil'} shouldIndexPage={false} />
       <header>
         <div>
           <Link href="/chat">
@@ -177,7 +171,10 @@ export default function Profile() {
           <AvatarInput
             bg={
               user?.avatar_url ||
-              `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
+              userParser?.avatar_url ||
+              `${urls[process.env.NODE_ENV]}/myAvatars/${
+                user?.id || userParser?.id
+              }`
             }
           >
             <div />
@@ -189,7 +186,6 @@ export default function Profile() {
           </AvatarInput>
 
           <h1>Meu perfil</h1>
-
           <Input name="name" icon={FiUser} placeholder="Nome" />
           <Input name="email" icon={FiMail} placeholder="E-mail" />
 
@@ -235,7 +231,7 @@ export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
   }
   return {
     props: {
-      data: { GoBarbertoken, Gobarberuser },
+      Gobarberuser,
     },
   };
 };

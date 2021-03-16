@@ -41,12 +41,14 @@ export interface MessageProps {
 }
 
 interface ChatHomeProps {
-  data: { GoBarbertoken: string; Gobarberuser: string };
+  Gobarberuser: string;
 }
 
-export default function ChatHome({ data }: ChatHomeProps) {
+export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
+
+  const userParser = JSON.parse(Gobarberuser);
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -223,7 +225,10 @@ export default function ChatHome({ data }: ChatHomeProps) {
             <img
               src={
                 user?.avatar_url ||
-                `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
+                userParser?.avatar_url ||
+                `${urls[process.env.NODE_ENV]}/myAvatars/${
+                  user?.id || userParser?.id
+                }`
               }
               alt={user?.name}
             />
@@ -353,7 +358,7 @@ export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
   }
   return {
     props: {
-      data: { GoBarbertoken, Gobarberuser },
+      Gobarberuser,
     },
   };
 };
