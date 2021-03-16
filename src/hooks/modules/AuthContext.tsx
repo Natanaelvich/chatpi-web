@@ -31,14 +31,12 @@ const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
 
   const [data, setData] = useState<AuthState>(() => {
-    if (typeof window !== 'undefined') {
-      const token = Cookies.get('GoBarbertoken');
-      const user = Cookies.get('Gobarberuser');
+    const token = Cookies.get('GoBarbertoken');
+    const user = Cookies.get('Gobarberuser');
 
-      if (token && user) {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        return { token, user: JSON.parse(user) };
-      }
+    if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      return { token, user: JSON.parse(user) };
     }
 
     return {} as AuthState;
@@ -93,10 +91,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth must be used within a AuthProvider');
-  }
 
   return context;
 }
