@@ -26,7 +26,6 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
-import { GetServerSideProps } from 'next';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -44,11 +43,9 @@ interface ChatHomeProps {
   Gobarberuser: string;
 }
 
-export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
+function ChatHome() {
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
-
-  const userParser = JSON.parse(Gobarberuser);
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -68,11 +65,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
         setUsers(responseUser.data);
         setAttendantes(responseAttendantes.data);
       } catch (error) {
-        addToast({
-          type: 'error',
-          title: 'Erro ao buscar usuarios',
-          description: 'Tente novamente mais tarde',
-        });
+        console.log(error);
       }
     }
 
@@ -86,7 +79,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
   }, [user]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && user) {
       const messagesStorage = localStorage.getItem(
         `@GoBarber:messages:${user.id}`,
       );
@@ -105,7 +98,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
         id: m.user,
       }));
       setMessages(oldMessages => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && user) {
           localStorage.setItem(
             `@GoBarber:messages:${user.id}`,
             JSON.stringify([...oldMessages, ...messagesTemp]),
@@ -119,7 +112,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
       const messageParse = JSON.parse(messageSocket);
 
       setMessages(oldMessages => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && user) {
           localStorage.setItem(
             `@GoBarber:messages:${user.id}`,
             JSON.stringify([
@@ -171,7 +164,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
       if (chatActivity) {
         socket.emit('message', JSON.stringify(messageTemp));
         setMessages(oldMessages => {
-          if (typeof window !== 'undefined') {
+          if (typeof window !== 'undefined' && user) {
             localStorage.setItem(
               `@GoBarber:messages:${user.id}`,
               JSON.stringify([
@@ -214,6 +207,10 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
     [messages],
   );
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <Wrapper>
       <Seo title="Dashboard" shouldIndexPage={false} />
@@ -225,10 +222,7 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
             <img
               src={
                 user?.avatar_url ||
-                userParser?.avatar_url ||
-                `${urls[process.env.NODE_ENV]}/myAvatars/${
-                  user?.id || userParser?.id
-                }`
+                `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
               }
               alt={user?.name}
             />
@@ -347,18 +341,20 @@ export default function ChatHome({ Gobarberuser }: ChatHomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
-  req,
-  res,
-}) => {
-  const { GoBarbertoken, Gobarberuser } = req.cookies;
+export default ChatHome;
 
-  if (!GoBarbertoken) {
-    res.writeHead(302, { Location: '/' }).end();
-  }
-  return {
-    props: {
-      Gobarberuser,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
+//   req,
+//   res,
+// }) => {
+//   const { GoBarbertoken, Gobarberuser } = req.cookies;
+
+//   if (!GoBarbertoken) {
+//     res.writeHead(302, { Location: '/' }).end();
+//   }
+//   return {
+//     props: {
+//       Gobarberuser,
+//     },
+//   };
+// };

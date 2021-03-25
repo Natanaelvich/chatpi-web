@@ -8,7 +8,6 @@ import { urls } from '@/constants';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
-import { GetServerSideProps } from 'next';
 import api from '../services/api';
 
 import { useToast } from '../hooks/modules/ToastContext';
@@ -32,12 +31,10 @@ interface ProfileFormData {
   password_confirmation: string;
 }
 
-export default function Profile({ Gobarberuser }) {
+export default function Profile() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const router = useRouter();
-
-  const userParser = JSON.parse(Gobarberuser);
 
   const [loading, setLoading] = useState(0);
 
@@ -146,9 +143,13 @@ export default function Profile({ Gobarberuser }) {
     [addToast, updateUser],
   );
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <Container>
-      <Seo title={userParser?.name || 'Perfil'} shouldIndexPage={false} />
+      <Seo title={user?.name || 'Perfil'} shouldIndexPage={false} />
       <header>
         <div>
           <Link href="/chat">
@@ -171,10 +172,7 @@ export default function Profile({ Gobarberuser }) {
           <AvatarInput
             bg={
               user?.avatar_url ||
-              userParser?.avatar_url ||
-              `${urls[process.env.NODE_ENV]}/myAvatars/${
-                user?.id || userParser?.id
-              }`
+              `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
             }
           >
             <div />
@@ -220,18 +218,18 @@ export default function Profile({ Gobarberuser }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
-  req,
-  res,
-}) => {
-  const { GoBarbertoken, Gobarberuser } = req.cookies;
+// export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
+//   req,
+//   res,
+// }) => {
+//   const { GoBarbertoken, Gobarberuser } = req.cookies;
 
-  if (!GoBarbertoken) {
-    res.writeHead(302, { Location: '/' }).end();
-  }
-  return {
-    props: {
-      Gobarberuser,
-    },
-  };
-};
+//   if (!GoBarbertoken) {
+//     res.writeHead(302, { Location: '/' }).end();
+//   }
+//   return {
+//     props: {
+//       Gobarberuser,
+//     },
+//   };
+// };
