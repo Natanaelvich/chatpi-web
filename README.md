@@ -28,6 +28,7 @@
 - [Eslint](https://eslint.org/) is used to prevent JavaScript error.
 - [Prettier](https://prettier.io/docs/en/index.html) is an opinionated code formatter.
 - [ReactJS](https://github.com/facebook/react) is used for UI.
+- [NextJS](https://nextjs.org/)The React Frameworkfor Production
 - [Typecript](https://www.typescriptlang.org/) TypeScript extends JavaScript by adding types.
 
 
