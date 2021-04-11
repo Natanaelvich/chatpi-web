@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 export const Container = styled.div`
+  height: 100vh;
   display: flex;
   flex: 1;
   overflow: auto;
@@ -92,7 +93,7 @@ export const BackGround = styled.div`
   justify-content: flex-start;
   height: 100vh;
 
-  @media (max-width: 683px) {
+  @media (max-width: 768px) {
     & {
       display: none;
     }
@@ -103,10 +104,11 @@ export const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  display: none;
 
-  @media (min-width: 683px) {
+  @media (max-width: 768px) {
     & {
-      display: none;
+      display: block;
     }
   }
 `;
