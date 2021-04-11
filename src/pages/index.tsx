@@ -95,7 +95,11 @@ export default function SingnIn() {
               name="password"
             />
 
-            <Button loading={loading} type="submit">
+            <Button
+              loading={loading}
+              type="submit"
+              aria-label="Esqueci minha senha"
+            >
               Entrar
             </Button>
             <Link href="/forgot_password">
