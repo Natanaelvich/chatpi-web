@@ -7,14 +7,13 @@ import { FormHandles } from '@unform/core';
 
 import Image from 'next/image';
 import {
-  Logo,
-  BackGround,
   Container,
   Content,
   AnimationContainer,
 } from '@/styles/pages/ForgotPassword';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { BackGround, Logo } from '@/styles/SingnIn/styles';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import getValidationErros from '../utils/getValidationErros';
@@ -83,11 +82,10 @@ const ForgotPassword: React.FC = () => {
       </BackGround>
       <Content>
         <AnimationContainer>
-          <Logo>
-            <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
-          </Logo>
-
           <Form ref={formRef} onSubmit={hanleSingnUp}>
+            <Logo>
+              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
+            </Logo>
             <h1>Recuperar senha</h1>
 
             <Input placeholder="E-mail" name="email" icon={FiMail} />
