@@ -8,6 +8,7 @@ import { urls } from '@/constants';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
+import withAuth from '@/utils/withAuth';
 import api from '../services/api';
 
 import { useToast } from '../hooks/modules/ToastContext';
@@ -31,7 +32,7 @@ interface ProfileFormData {
   password_confirmation: string;
 }
 
-export default function Profile() {
+function Profile() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const router = useRouter();
@@ -218,6 +219,7 @@ export default function Profile() {
   );
 }
 
+export default withAuth(Profile);
 // export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
 //   req,
 //   res,
