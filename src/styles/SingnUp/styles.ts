@@ -5,6 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex: 1;
   overflow: auto;
+  height: 100vh;
   background: linear-gradient(270deg, #3f3a79 27.66%, #d56065 98.55%);
 `;
 
