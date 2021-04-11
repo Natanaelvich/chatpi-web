@@ -30,7 +30,6 @@ export const AnimationContainer = styled.div`
   animation: ${appearFromRight} 1s;
 
   form {
-    margin: 80px 0;
     width: 340px;
     text-align: center;
 
@@ -78,30 +77,5 @@ export const Content = styled.div`
   width: 100%;
   max-width: 600px;
   margin: auto;
-`;
-
-export const BackGround = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-
-  @media (max-width: 683px) {
-    & {
-      display: none;
-    }
-  }
-`;
-export const Logo = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @media (min-width: 683px) {
-    & {
-      display: none;
-    }
-  }
+  border: 3px #fff;
 `;
