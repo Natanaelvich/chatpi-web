@@ -1,11 +1,5 @@
 import { useRouter } from 'next/router';
-import React, {
-  createContext,
-  useCallback,
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 import api from '../../services/api';
 
@@ -36,23 +30,15 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
 
-  const [data, setData] = useState<AuthState>({} as AuthState);
-
-  useEffect(() => {
-    function verifyUserData() {
-      const token = Cookies.get('GoBarbertoken');
-      const user = Cookies.get('Gobarberuser');
-      if (token && user) {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        setData({ token, user: JSON.parse(user) });
-        return;
-      }
-
-      router.replace('/');
+  const [data, setData] = useState<AuthState>(() => {
+    const token = Cookies.get('GoBarbertoken');
+    const user = Cookies.get('Gobarberuser');
+    if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      return { token, user: JSON.parse(user) };
     }
-
-    verifyUserData();
-  }, [router]);
+    return {} as AuthState;
+  });
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
