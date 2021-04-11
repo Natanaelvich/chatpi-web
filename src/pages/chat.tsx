@@ -26,6 +26,7 @@ import io from 'socket.io-client';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
+import withAuth from '@/utils/withAuth';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -341,7 +342,7 @@ function ChatHome() {
   );
 }
 
-export default ChatHome;
+export default withAuth(ChatHome);
 
 // export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
 //   req,
