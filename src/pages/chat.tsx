@@ -27,6 +27,7 @@ import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
+import LoadingPage from '@/components/LoadingPage';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -207,10 +208,6 @@ function ChatHome() {
     },
     [messages],
   );
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <Wrapper>
