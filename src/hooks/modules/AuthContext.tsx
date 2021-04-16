@@ -56,15 +56,10 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
+    router.push('/');
+
     Cookies.remove('GoBarbertoken');
     Cookies.remove('Gobarberuser');
-
-    setData({
-      token: null,
-      user: null,
-    });
-
-    router.push('/');
   }, [router]);
 
   const updateUser = useCallback(
