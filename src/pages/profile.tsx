@@ -144,10 +144,6 @@ function Profile() {
     [addToast, updateUser],
   );
 
-  if (!user) {
-    return null;
-  }
-
   return (
     <Container>
       <Seo title={user?.name || 'Perfil'} shouldIndexPage={false} />
