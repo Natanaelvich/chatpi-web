@@ -13,6 +13,7 @@ export const Container = styled.aside<ContainerProps>`
   flex-direction: column;
   width: 250px;
   overflow: auto;
+  padding-top: 12px;
 
   @media (max-width: 425px) {
     ${props =>
