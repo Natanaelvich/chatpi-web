@@ -115,7 +115,12 @@ const ChatList: React.FC<ChatProps> = ({
               ),
           )}
         <TitleChats>Atendentes</TitleChats>
-        <TitleAttendant>Enfermeiros(a)</TitleAttendant>
+        {attendants.length === 0 && (
+          <TitleAttendant>Não existem atendentes ainda!</TitleAttendant>
+        )}
+        {attendants.filter(u => u.clerk === 'enf').length > 0 && (
+          <TitleAttendant>Enfermeiros(a)</TitleAttendant>
+        )}
         {attendants
           .filter(u => u.clerk === 'enf')
           .map(u => (
@@ -156,7 +161,9 @@ const ChatList: React.FC<ChatProps> = ({
               </section>
             </Chat>
           ))}
-        <TitleAttendant>Psicólogos(a)</TitleAttendant>
+        {attendants.filter(u => u.clerk === 'psic').length > 0 && (
+          <TitleAttendant>Psicólogos(a)</TitleAttendant>
+        )}
         {attendants
           .filter(u => u.clerk === 'psic')
           .map(u => (
