@@ -27,7 +27,6 @@ import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
-import LoadingPage from '@/components/LoadingPage';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -331,7 +330,7 @@ function ChatHome() {
           </Chat>
         ) : (
           <Background>
-            <p>Clique em um usuario para iniciar uma coversa </p>
+            <p>Clique em um atendente para iniciar uma coversa 💬</p>
           </Background>
         )}
       </Container>
