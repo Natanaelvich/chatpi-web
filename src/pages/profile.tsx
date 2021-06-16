@@ -216,18 +216,3 @@ function Profile() {
 }
 
 export default withAuth(Profile);
-// export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
-//   req,
-//   res,
-// }) => {
-//   const { GoBarbertoken, Gobarberuser } = req.cookies;
-
-//   if (!GoBarbertoken) {
-//     res.writeHead(302, { Location: '/' }).end();
-//   }
-//   return {
-//     props: {
-//       Gobarberuser,
-//     },
-//   };
-// };

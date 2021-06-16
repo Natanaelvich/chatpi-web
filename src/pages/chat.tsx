@@ -339,19 +339,3 @@ function ChatHome() {
 }
 
 export default withAuth(ChatHome);
-
-// export const getServerSideProps: GetServerSideProps<ChatHomeProps> = async ({
-//   req,
-//   res,
-// }) => {
-//   const { GoBarbertoken, Gobarberuser } = req.cookies;
-
-//   if (!GoBarbertoken) {
-//     res.writeHead(302, { Location: '/' }).end();
-//   }
-//   return {
-//     props: {
-//       Gobarberuser,
-//     },
-//   };
-// };
