@@ -11,7 +11,7 @@ export default function withAuth(WrappedComponent: ElementType) {
 
     useEffect(() => {
       setLoading(true);
-      const tokenCookien = Cookies.get('GoBarbertoken');
+      const tokenCookien = Cookies.get('@chatpi:token');
 
       setToken(tokenCookien);
       if (!tokenCookien) {
