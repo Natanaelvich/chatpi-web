@@ -40,6 +40,7 @@
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react/no-array-index-key": "off",
+    "import/no-extraneous-dependencies" : "off",
     "jsx-a11y/label-has-associated-control": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "off",
