@@ -32,11 +32,8 @@ describe('Auth hook', () => {
 
     await waitForNextUpdate();
 
-    expect(setItemSpy).toHaveBeenCalledWith('@chatpi:token', 'token-123');
-    expect(setItemSpy).toHaveBeenCalledWith(
-      '@chatpi:user',
-      JSON.stringify(user),
-    );
+    expect(setItemSpy).toHaveBeenCalledWith('chatpitoken', 'token-123');
+    expect(setItemSpy).toHaveBeenCalledWith('chatpiuser', JSON.stringify(user));
     expect(result.current.user.email).toEqual('johndoe@example.com.br');
   });
 
@@ -49,9 +46,9 @@ describe('Auth hook', () => {
 
     jest.spyOn(Storage.prototype, 'getItem').mockImplementation(key => {
       switch (key) {
-        case '@chatpi:token':
+        case 'chatpitoken':
           return 'token-123';
-        case '@chatpi:user':
+        case 'chatpiuser':
           return JSON.stringify(user);
         default:
           return null;

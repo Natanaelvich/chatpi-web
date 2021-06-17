@@ -11,7 +11,7 @@ export default function withAuth(WrappedComponent: ElementType) {
 
     useEffect(() => {
       setLoading(true);
-      const tokenCookien = Cookies.get('@chatpi:token');
+      const tokenCookien = Cookies.get('chatpitoken');
 
       setToken(tokenCookien);
       if (!tokenCookien) {

@@ -31,8 +31,8 @@ const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
 
   const [data, setData] = useState<AuthState>(() => {
-    const token = Cookies.get('@chatpi:token');
-    const user = Cookies.get('@chatpi:user');
+    const token = Cookies.get('chatpitoken');
+    const user = Cookies.get('chatpiuser');
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
@@ -48,8 +48,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    Cookies.set('@chatpi:token', String(token));
-    Cookies.set('@chatpi:user', JSON.stringify(user));
+    Cookies.set('chatpitoken', String(token));
+    Cookies.set('chatpiuser', JSON.stringify(user));
 
     api.defaults.headers.authorization = `Bearer ${token}`;
     setData({ token, user });
@@ -58,13 +58,13 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     router.push('/');
 
-    Cookies.remove('@chatpi:token');
-    Cookies.remove('@chatpi:user');
+    Cookies.remove('chatpitoken');
+    Cookies.remove('chatpiuser');
   }, [router]);
 
   const updateUser = useCallback(
     (user: User) => {
-      Cookies.set('@chatpi:user', JSON.stringify(user));
+      Cookies.set('chatpiuser', JSON.stringify(user));
       setData({
         token: data.token,
         user,

@@ -122,8 +122,9 @@ export default function SingnIn() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const { GoBarbertoken } = req.cookies;
-  if (GoBarbertoken) {
+  const { chatpitoken } = req.cookies;
+
+  if (chatpitoken) {
     res.writeHead(302, { Location: '/chat' }).end();
   }
   return {
