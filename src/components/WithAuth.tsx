@@ -4,8 +4,6 @@ import SingnIn from '@/pages';
 const WithAuth = Component => {
   const { user } = useAuth();
   const Auth = props => {
-    const { isLoggedIn } = props;
-
     if (!user) {
       return <SingnIn />;
     }
