@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import Head from 'next/head';
 
 interface SEOprops {
@@ -19,7 +20,6 @@ export default function SEO({
   const pageImage = image
     ? `${process.env.NEXT_PUBLIC_WEB_URL}/${image}`
     : null;
-  const pageImageSmall = `${process.env.NEXT_PUBLIC_WEB_URL}SeoSmall.png`;
   return (
     <Head>
       <title>{pageTitle}</title>
