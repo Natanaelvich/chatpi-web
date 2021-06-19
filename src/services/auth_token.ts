@@ -15,7 +15,9 @@ export class AuthToken {
     // then try and decode the jwt using jwt-decode
     try {
       if (token) this.decodedToken = jwtDecode(token);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   get authorizationString() {
