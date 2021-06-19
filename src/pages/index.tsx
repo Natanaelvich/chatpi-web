@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import Seo from '@/components/Seo';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import LoadingPage from '@/components/LoadingPage';
 import {
   Container,
   Content,
@@ -25,7 +24,7 @@ import { useToast } from '../hooks/modules/ToastContext';
 export default function SingnIn() {
   const formRef = useRef<FormHandles>(null);
   const router = useRouter();
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
   const { addToast } = useToast();
 
   const [loading, setLoading] = useState(0);
