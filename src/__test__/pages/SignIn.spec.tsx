@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 import SingnIn from '../../pages';
 
