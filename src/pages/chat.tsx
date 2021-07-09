@@ -161,6 +161,8 @@ function ChatHome() {
         readed: false,
         date: new Date(),
         name: user.name,
+        largeIcon:
+          user?.avatar_url || `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`,
       };
       if (chatActivity) {
         socket.emit('message', JSON.stringify(messageTemp));
