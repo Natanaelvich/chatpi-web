@@ -4,7 +4,7 @@ import React from 'react';
 
 const UseTerms: React.FC = () => {
   return (
-    <div><div class="row"><div class="col-12"><div><h1><font ><font >Termos e Condições</font></font></h1>
+    <div><div ><div ><div><h1><font ><font >Termos e Condições</font></font></h1>
 <p><font ><font >Última atualização: 14 de julho de 2021</font></font></p>
 <p><font ><font >Por favor, leia estes termos e condições cuidadosamente antes de usar nosso serviço.</font></font></p>
 <h1><font ><font >Interpretação e Definições</font></font></h1>
