@@ -1,9 +1,7 @@
 import ChatList from '@/components/ChatList';
 import { useAuth } from '@/hooks/modules/AuthContext';
-import { useToast } from '@/hooks/modules/ToastContext';
 import { AiOutlineSend } from 'react-icons/ai';
 import { IoMdArrowBack } from 'react-icons/io';
-import api from '@/services/api';
 import {
   Chat,
   Messages,
@@ -15,18 +13,12 @@ import {
   Profile,
   Background,
 } from '@/styles/Chat/styles';
-import React, {
-  FormEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import io from 'socket.io-client';
+import React from 'react';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
+import { useChat } from '@/hooks/modules/ChatContext';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -46,169 +38,20 @@ interface ChatHomeProps {
 
 function ChatHome() {
   const { user, signOut } = useAuth();
-  const { addToast } = useToast();
 
-  const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [attendants, setAttendantes] = useState([]);
-  const [message, setMessage] = useState('');
-  const [inputFocus, setInputFocus] = useState(false);
-  const [chatActivity, setChatActivity] = useState(null);
-  const [usersLoggeds, setUsersLoggeds] = useState(null);
-  const [typing, setTyping] = useState(null);
-
-  useEffect(() => {
-    async function getUsers() {
-      try {
-        const responseUser = await api.get('users');
-        const responseAttendantes = await api.get('attendantes');
-
-        setUsers(responseUser.data);
-        setAttendantes(responseAttendantes.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getUsers();
-  }, [addToast]);
-
-  const socket = useMemo(() => {
-    return io(urls[process.env.NODE_ENV], {
-      query: { user: user?.id },
-    });
-  }, [user]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && user) {
-      const messagesStorage = localStorage.getItem(
-        `@GoBarber:messages:${user.id}`,
-      );
-      if (messagesStorage) {
-        setMessages(JSON.parse(messagesStorage));
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    socket.on('messagesCache', (messagesCache: string) => {
-      const messagesParse = JSON.parse(messagesCache);
-      const messagesTemp = messagesParse.map(m => ({
-        ...m,
-        readed: false,
-        id: m.user,
-      }));
-      setMessages(oldMessages => {
-        if (typeof window !== 'undefined' && user) {
-          localStorage.setItem(
-            `@GoBarber:messages:${user.id}`,
-            JSON.stringify([...oldMessages, ...messagesTemp]),
-          );
-        }
-
-        return [...oldMessages, ...messagesTemp];
-      });
-    });
-    socket.on('message', messageSocket => {
-      const messageParse = JSON.parse(messageSocket);
-
-      setMessages(oldMessages => {
-        if (typeof window !== 'undefined' && user) {
-          localStorage.setItem(
-            `@GoBarber:messages:${user.id}`,
-            JSON.stringify([
-              ...oldMessages,
-              {
-                ...messageParse,
-                // readed: chatActivity?.id
-                //   ? chatActivity.id === messageParse.user
-                //   : false,
-                readed: false,
-                id: messageParse.user,
-              },
-            ]),
-          );
-        }
-        return [
-          ...oldMessages,
-          {
-            ...messageParse,
-            // readed: chatActivity?.id
-            //   ? chatActivity.id === messageParse.user
-            //   : false,
-            readed: false,
-            id: messageParse.user,
-          },
-        ];
-      });
-    });
-    socket.on('usersLoggeds', usersLoggedsSocket => {
-      setUsersLoggeds(JSON.parse(usersLoggedsSocket));
-    });
-    socket.on('typing', typingSocket => {
-      setTyping(JSON.parse(typingSocket));
-    });
-  }, [socket, user]);
-
-  const sendMessage = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      const messageTemp = {
-        id: chatActivity.id,
-        user: user?.id,
-        toUser: chatActivity.id,
-        message,
-        readed: false,
-        date: new Date(),
-        name: user.name,
-        largeIcon:
-          user?.avatar_url || `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`,
-      };
-      if (chatActivity) {
-        socket.emit('message', JSON.stringify(messageTemp));
-        setMessages(oldMessages => {
-          if (typeof window !== 'undefined' && user) {
-            localStorage.setItem(
-              `@GoBarber:messages:${user.id}`,
-              JSON.stringify([
-                ...oldMessages,
-                { ...messageTemp, readed: true },
-              ]),
-            );
-          }
-          return [...oldMessages, { ...messageTemp, readed: true }];
-        });
-
-        setMessage('');
-      }
-    },
-    [socket, message, chatActivity, user],
-  );
-
-  const getLastMessage = useCallback(
-    attendant => {
-      const messagesUser = messages.filter(
-        m =>
-          (m.user === attendant.id && m.toUser === user?.id) ||
-          (m.user === user?.id && m.toUser === attendant.id),
-      );
-      if (messagesUser.length > 0) {
-        return messagesUser[messagesUser.length - 1].message;
-      }
-      return null;
-    },
-    [messages, user],
-  );
-
-  const getMessagesNoReadedsArray = useCallback(
-    attendant => {
-      const messagesUser = messages
-        .filter(m => m.id === attendant.id)
-        .filter(m => m.readed === false);
-      return messagesUser;
-    },
-    [messages],
-  );
+  const {
+    sendMessage,
+    messages,
+    message,
+    inputFocus,
+    chatActivity,
+    usersLoggeds,
+    typing,
+    changeActivity,
+    changeInputFocus,
+    socket,
+    changeMessage,
+  } = useChat();
 
   return (
     <Wrapper>
@@ -241,23 +84,11 @@ function ChatHome() {
         </HeaderContent>
       </Header>
       <Container>
-        <ChatList
-          chatShow={chatActivity}
-          typing={typing}
-          chatActivity={chatActivity}
-          setChatActivity={setChatActivity}
-          attendants={attendants}
-          users={users}
-          usersLoggeds={usersLoggeds}
-          messages={messages}
-          getLastMessage={getLastMessage}
-          setMessages={setMessages}
-          getMessagesNoReadedsArray={getMessagesNoReadedsArray}
-        />
+        <ChatList chatShow={chatActivity} />
         {chatActivity ? (
           <Chat>
             <HeaderChat>
-              <button type="button" onClick={() => setChatActivity(null)}>
+              <button type="button" onClick={() => changeActivity(null)}>
                 <IoMdArrowBack size={21} color="#fff" />
               </button>
 
@@ -299,9 +130,9 @@ function ChatHome() {
               <InputMessage focused={inputFocus}>
                 <input
                   placeholder="Digite sua mensagem..."
-                  onFocus={e => setInputFocus(e.nativeEvent.returnValue)}
+                  onFocus={e => changeInputFocus(e.nativeEvent.returnValue)}
                   onBlur={() => {
-                    setInputFocus(false);
+                    changeInputFocus(false);
                     socket.emit(
                       'typingBlur',
                       JSON.stringify({
@@ -321,7 +152,7 @@ function ChatHome() {
                         toUser: chatActivity?.id,
                       }),
                     );
-                    setMessage(text.target.value);
+                    changeMessage(text.target.value);
                   }}
                 />
                 <button type="submit">

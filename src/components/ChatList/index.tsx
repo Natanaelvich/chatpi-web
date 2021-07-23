@@ -1,6 +1,6 @@
 import { urls } from '@/constants';
 import { useAuth } from '@/hooks/modules/AuthContext';
-import { MessageProps } from '@/pages/chat';
+import { useChat } from '@/hooks/modules/ChatContext';
 import React from 'react';
 import {
   Container,
@@ -14,42 +14,26 @@ import {
   CircleMessagesNoReads,
 } from './styles';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar_url: string;
-  clerk: string | null;
-}
-
 interface ChatProps {
-  users: User[];
-  attendants: User[];
-  chatActivity: Record<string, any>;
-  setChatActivity: Function;
-  usersLoggeds: Record<string, any>;
-  typing: Record<string, any>;
-  getLastMessage: Function;
   chatShow: Record<string, any>;
-  messages: MessageProps[];
-  getMessagesNoReadedsArray: Function;
-  setMessages: Function;
 }
 
-const ChatList: React.FC<ChatProps> = ({
-  users,
-  chatActivity,
-  setChatActivity,
-  usersLoggeds,
-  typing,
-  getLastMessage,
-  chatShow,
-  attendants,
-  messages,
-  getMessagesNoReadedsArray,
-  setMessages,
-}) => {
+const ChatList: React.FC<ChatProps> = ({ chatShow }) => {
   const { user } = useAuth();
+
+  const {
+    getLastMessage,
+    getMessagesNoReadedsArray,
+    messages,
+    users,
+    attendants,
+
+    chatActivity,
+    usersLoggeds,
+    typing,
+    changeActivity,
+    changeMessages,
+  } = useChat();
 
   function readyMessages(u) {
     const messagesReadeds = messages.map(m =>
@@ -66,7 +50,7 @@ const ChatList: React.FC<ChatProps> = ({
         JSON.stringify(messagesReadeds),
       );
     }
-    setMessages(messagesReadeds);
+    changeMessages(messagesReadeds);
   }
   return (
     <Container chatShow={chatShow}>
@@ -80,7 +64,7 @@ const ChatList: React.FC<ChatProps> = ({
                   active={chatActivity && u.id === chatActivity.id}
                   key={u.id}
                   onClick={() => {
-                    setChatActivity(u);
+                    changeActivity(u);
                     readyMessages(u);
                   }}
                 >
@@ -129,7 +113,7 @@ const ChatList: React.FC<ChatProps> = ({
               key={u.id}
               onClick={() => {
                 readyMessages(u);
-                setChatActivity(u);
+                changeActivity(u);
               }}
             >
               <AvatarContainer>
@@ -172,7 +156,7 @@ const ChatList: React.FC<ChatProps> = ({
               key={u.id}
               onClick={() => {
                 readyMessages(u);
-                setChatActivity(u);
+                changeActivity(u);
               }}
             >
               <AvatarContainer>
