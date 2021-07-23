@@ -13,12 +13,13 @@ import {
   Profile,
   Background,
 } from '@/styles/Chat/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiPower } from 'react-icons/fi';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
 import { useChat } from '@/hooks/modules/ChatContext';
+import api from '@/services/api';
 import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/SingnIn/styles';
 
@@ -51,7 +52,25 @@ function ChatHome() {
     changeInputFocus,
     socket,
     changeMessage,
+    changeAttedantes,
+    changeUsers,
   } = useChat();
+
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        const responseUser = await api.get('users');
+        const responseAttendantes = await api.get('attendantes');
+
+        changeUsers(responseUser.data);
+        changeAttedantes(responseAttendantes.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getUsers();
+  }, [changeUsers, changeAttedantes]);
 
   return (
     <Wrapper>

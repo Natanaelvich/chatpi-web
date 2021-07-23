@@ -21,6 +21,8 @@ interface ChatContextData {
   changeInputFocus: (focused: boolean) => void;
   changeMessage: (message: string) => void;
   changeMessages: (messagesValues: any[]) => void;
+  changeUsers: (usersValues: any[]) => void;
+  changeAttedantes: (attedantesValues: any[]) => void;
   messages: any[];
   users: any[];
   attendants: any[];
@@ -36,7 +38,6 @@ const ChatContext = createContext<ChatContextData>({} as ChatContextData);
 
 const ChatProvider: React.FC = ({ children }) => {
   const { user } = useAuth();
-  const { addToast } = useToast();
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -46,22 +47,6 @@ const ChatProvider: React.FC = ({ children }) => {
   const [chatActivity, setChatActivity] = useState<any>();
   const [usersLoggeds, setUsersLoggeds] = useState<any>();
   const [typing, setTyping] = useState<any>();
-
-  useEffect(() => {
-    async function getUsers() {
-      try {
-        const responseUser = await api.get('users');
-        const responseAttendantes = await api.get('attendantes');
-
-        setUsers(responseUser.data);
-        setAttendantes(responseAttendantes.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getUsers();
-  }, [addToast]);
 
   const socket = useMemo(() => {
     return io(urls[process.env.NODE_ENV], {
@@ -216,6 +201,14 @@ const ChatProvider: React.FC = ({ children }) => {
   function changeMessages(messagesValues: any[]): void {
     setMessages(messagesValues);
   }
+
+  function changeUsers(usersValues: any[]): void {
+    setUsers(usersValues);
+  }
+
+  function changeAttedantes(attedantesValues: any[]): void {
+    setAttendantes(attedantesValues);
+  }
   return (
     <ChatContext.Provider
       value={{
@@ -235,6 +228,8 @@ const ChatProvider: React.FC = ({ children }) => {
         socket,
         changeMessage,
         changeMessages,
+        changeUsers,
+        changeAttedantes,
       }}
     >
       {children}
