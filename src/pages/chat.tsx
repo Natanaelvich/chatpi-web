@@ -101,7 +101,7 @@ function ChatHome() {
             </div>
           </Profile>
 
-          <button type="button" name="Sair" onClick={signOut}>
+          <button type="button" aria-label="Sair" onClick={signOut}>
             <FiPower color="#fff" size={21} />
           </button>
         </HeaderContent>
