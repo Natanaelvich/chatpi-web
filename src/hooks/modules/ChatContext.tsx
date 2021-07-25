@@ -186,29 +186,30 @@ const ChatProvider: React.FC = ({ children }) => {
     [messages],
   );
 
-  function changeActivity(chat: any): void {
+  const changeActivity = useCallback((chat: any): void => {
     setChatActivity(chat);
-  }
+  }, []);
 
-  function changeInputFocus(focused: boolean): void {
+  const changeInputFocus = useCallback((focused: boolean): void => {
     setInputFocus(focused);
-  }
+  }, []);
 
-  function changeMessage(messageValue: string): void {
+  const changeMessage = useCallback((messageValue: string): void => {
     setMessage(messageValue);
-  }
+  }, []);
 
-  function changeMessages(messagesValues: any[]): void {
+  const changeMessages = useCallback((messagesValues: any[]): void => {
     setMessages(messagesValues);
-  }
+  }, []);
 
-  function changeUsers(usersValues: any[]): void {
+  const changeUsers = useCallback((usersValues: any[]) => {
     setUsers(usersValues);
-  }
+  }, []);
 
-  function changeAttedantes(attedantesValues: any[]): void {
+  const changeAttedantes = useCallback((attedantesValues: any[]) => {
     setAttendantes(attedantesValues);
-  }
+  }, []);
+
   return (
     <ChatContext.Provider
       value={{
