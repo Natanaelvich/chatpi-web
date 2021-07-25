@@ -29,7 +29,7 @@ export const TitleChats = styled.h1`
 `;
 export const TitleAttendant = styled.h2`
   margin-bottom: 12px;
-  color: #89748a;
+  color: #ecdced;
   font-size: 16px;
   margin-top: 24px;
   margin-left: 24px;
@@ -100,7 +100,7 @@ export const Chat = styled.button<ChatProps>`
     flex-direction: column;
     align-items: flex-start;
     small {
-      color: #89748a;
+      color: #ecdced;
 
       white-space: nowrap;
       overflow: hidden;

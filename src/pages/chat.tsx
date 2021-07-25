@@ -74,7 +74,11 @@ function ChatHome() {
 
   return (
     <Wrapper>
-      <Seo title="Dashboard" shouldIndexPage={false} />
+      <Seo
+        title="Dashboard"
+        description="Veja suas conversas e envia e receba mensagens"
+        shouldIndexPage={false}
+      />
       <Header chatShow={chatActivity}>
         <HeaderContent>
           <img src="/Logo.png" alt="Chat PI" width={80} height={77} />
@@ -97,7 +101,7 @@ function ChatHome() {
             </div>
           </Profile>
 
-          <button type="button" onClick={signOut}>
+          <button type="button" name="Sair" onClick={signOut}>
             <FiPower color="#fff" size={21} />
           </button>
         </HeaderContent>
