@@ -1,6 +1,6 @@
 <h1 align='center'> PI </h1>
 
-### College integrator project web in Nextjs ⚡️
+### A chat that connects people to health professionals, made with Nextjs ⚡️
 
 ---
 
