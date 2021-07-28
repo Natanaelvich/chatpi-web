@@ -1,4 +1,4 @@
-<h1 align='center'> PI </h1>
+<h1 align='center'> Chat PI </h1>
 
 ### A chat that connects people to health professionals, made with Nextjs ⚡️
 
