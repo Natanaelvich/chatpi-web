@@ -136,6 +136,7 @@ const ChatProvider: React.FC = ({ children }) => {
         readed: false,
         date: new Date(),
         name: user.name,
+        url: `https://www.chatpi.com/Chat/${user?.id}`,
         largeIcon:
           user?.avatar_url ||
           `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`,
