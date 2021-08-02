@@ -1,6 +1,6 @@
-<h1 align='center'> PI </h1>
+<h1 align='center'> Chat PI </h1>
 
-### College integrator project web in Nextjs ⚡️
+### A chat that connects people to health professionals, made with Nextjs ⚡️
 
 ---
 
@@ -31,4 +31,15 @@
 - [NextJS](https://nextjs.org/)The React Frameworkfor Production
 - [Typecript](https://www.typescriptlang.org/) TypeScript extends JavaScript by adding types.
 
+## License
 
+Distributed under the MIT license. See [LICENSE](LICENSE) for more information.
+
+---
+
+## Author
+
+Make by Natanael Lima 👋🏽 contact!
+
+[![Linkedin Badge](https://img.shields.io/badge/-Natanelvich-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/natanaelvich/)](https://www.linkedin.com/in/natanaelvich/)
+[![Gmail Badge](https://img.shields.io/badge/-taelima1997@gmail.com-red?style=flat-square&link=mailto:taelima1997@gmail.com)](mailto:taelima1997@gmail.com)
