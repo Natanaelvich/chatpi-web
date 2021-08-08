@@ -7,12 +7,13 @@ import { FormHandles } from '@unform/core';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BackGround, Logo } from '@/styles/SingnIn/styles';
 import {
+  Background,
+  Logo,
   Container,
   Content,
   AnimationContainer,
-} from '../styles/SingnUp/styles';
+} from '@/styles/auth/styles';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -84,15 +85,15 @@ const SingnUp: React.FC = () => {
 
   return (
     <Container>
-      <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
-      </BackGround>
       <Content>
+        <Background>
+          <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
+        </Background>
         <AnimationContainer>
+          <Logo>
+            <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
+          </Logo>
           <Form ref={formRef} onSubmit={hanleSingnUp}>
-            <Logo>
-              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
-            </Logo>
             <h1>Faça seu cadatro</h1>
 
             <Input placeholder="Nome" name="name" icon={FiUser} />
@@ -104,16 +105,18 @@ const SingnUp: React.FC = () => {
               icon={FiLock}
             />
 
-            <label htmlFor="attendant">
-              Atendente
-              <input
-                checked={attendant}
-                onChange={e => setAttendant(e.target.checked)}
-                type="checkbox"
-                id="attendant"
-                name="attendant"
-              />
-            </label>
+            <div>
+              <label htmlFor="attendant">
+                Atendente
+                <input
+                  checked={attendant}
+                  onChange={e => setAttendant(e.target.checked)}
+                  type="checkbox"
+                  id="attendant"
+                  name="attendant"
+                />
+              </label>
+            </div>
 
             {attendant && (
               <select

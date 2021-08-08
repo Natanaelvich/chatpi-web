@@ -11,10 +11,10 @@ import Image from 'next/image';
 import {
   Container,
   Content,
-  BackGround,
+  Background,
   AnimationContainer,
   Logo,
-} from '../styles/SingnIn/styles';
+} from '../styles/auth/styles';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import getValidationErros from '../utils/getValidationErros';
@@ -80,10 +80,10 @@ export default function SingnIn() {
       />
       <Content>
         <AnimationContainer>
+          <Logo>
+            <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
+          </Logo>
           <Form ref={formRef} onSubmit={hanleSingnIn}>
-            <Logo>
-              <Image src="/Logo.png" alt="Chat PI" width={165} height={160} />
-            </Logo>
             <h1>Chat PI</h1>
 
             <Input placeholder="E-mail" icon={FiMail} name="email" />
@@ -112,10 +112,11 @@ export default function SingnIn() {
             </a>
           </Link>
         </AnimationContainer>
+
+        <Background>
+          <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
+        </Background>
       </Content>
-      <BackGround>
-        <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
-      </BackGround>
     </Container>
   );
 }
