@@ -21,7 +21,7 @@ import withAuth from '@/utils/withAuth';
 import { useChat } from '@/hooks/modules/ChatContext';
 import api from '@/services/api';
 import { urls } from '../constants';
-import { Container, Wrapper } from '../styles/SingnIn/styles';
+import { Container, Wrapper } from '../styles/auth/styles';
 
 export interface MessageProps {
   user: string | undefined;
