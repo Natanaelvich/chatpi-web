@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 import api from '../../services/api';
@@ -27,9 +27,14 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
-  const router = useRouter();
+export function signOut() {
+  Router.push('/');
 
+  Cookies.remove('chatpitoken');
+  Cookies.remove('chatpiuser');
+}
+
+const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = Cookies.get('chatpitoken');
     const user = Cookies.get('chatpiuser');
@@ -46,21 +51,15 @@ const AuthProvider: React.FC = ({ children }) => {
       password,
     });
 
-    const { token, user } = response.data;
+    const { token, user, refresh_token } = response.data;
 
+    Cookies.set('chatpirefreshtoken', String(refresh_token));
     Cookies.set('chatpitoken', String(token));
     Cookies.set('chatpiuser', JSON.stringify(user));
 
     api.defaults.headers.authorization = `Bearer ${token}`;
     setData({ token, user });
   }, []);
-
-  const signOut = useCallback(() => {
-    router.push('/');
-
-    Cookies.remove('chatpitoken');
-    Cookies.remove('chatpiuser');
-  }, [router]);
 
   const updateUser = useCallback(
     (user: User) => {
