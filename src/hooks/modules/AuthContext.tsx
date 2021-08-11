@@ -8,7 +8,6 @@ interface SingnCredencials {
   password: string;
 }
 interface AuthState {
-  token: string;
   user: User;
 }
 interface User {
@@ -36,11 +35,9 @@ export function signOut() {
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = Cookies.get('chatpitoken');
     const user = Cookies.get('chatpiuser');
-    if (token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
-      return { token, user: JSON.parse(user) };
+    if (user) {
+      return { user: JSON.parse(user) };
     }
     return {} as AuthState;
   });
@@ -57,19 +54,18 @@ const AuthProvider: React.FC = ({ children }) => {
     Cookies.set('chatpitoken', String(token));
     Cookies.set('chatpiuser', JSON.stringify(user));
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
-    setData({ token, user });
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+    setData({ user });
   }, []);
 
   const updateUser = useCallback(
     (user: User) => {
       Cookies.set('chatpiuser', JSON.stringify(user));
       setData({
-        token: data.token,
         user,
       });
     },
-    [setData, data.token],
+    [setData],
   );
 
   return (
