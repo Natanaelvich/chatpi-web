@@ -13,7 +13,7 @@ import {
 } from '@/styles/pages/ForgotPassword';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { BackGround, Logo } from '@/styles/SingnIn/styles';
+import { Background, Logo } from '@/styles/auth/styles';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import getValidationErros from '../utils/getValidationErros';
@@ -77,9 +77,9 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
-      <BackGround>
+      <Background>
         <Image src="/Logo.png" alt="Chat PI" width={620} height={600} />
-      </BackGround>
+      </Background>
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={hanleSingnUp}>
