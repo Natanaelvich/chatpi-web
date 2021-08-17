@@ -49,13 +49,17 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const getMe = useCallback(async () => {
-    const response = await api.get('profile');
+    try {
+      const response = await api.get('profile');
 
-    const user = response.data;
+      const user = response.data;
 
-    Cookies.set('chatpiuser', JSON.stringify(user));
+      Cookies.set('chatpiuser', JSON.stringify(user));
 
-    setData({ user });
+      setData({ user });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
