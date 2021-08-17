@@ -119,20 +119,26 @@ function Profile() {
   );
 
   const handleAvatarChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+    async (e: ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
         const data = new FormData();
 
         data.append('avatar', e.target.files[0]);
 
-        api.patch('/users/avatar', data).then(response => {
+        try {
+          const response = await api.patch('/users/avatar', data);
           updateUser(response.data);
 
           addToast({
             type: 'success',
             title: 'Avatar atualizado!',
           });
-        });
+        } catch (error) {
+          addToast({
+            type: 'error',
+            title: 'Não foi possível atualizar seu avatar!',
+          });
+        }
       }
     },
     [addToast, updateUser],
