@@ -13,15 +13,16 @@ const api = axios.create({
 });
 
 let isRefreshing = false;
+let failedRequestsQueue: any[] = [];
 
 api.interceptors.response.use(
   response => response,
   (error: AxiosError) => {
-    const originalConfig = error.config;
     if (error.response.status === 401) {
       const chatpirefreshtoken = Cookies.get('chatpirefreshtoken');
+      const originalConfig = error.config;
 
-      if (chatpirefreshtoken && !isRefreshing) {
+      if (!isRefreshing) {
         isRefreshing = true;
 
         return api
@@ -33,21 +34,36 @@ api.interceptors.response.use(
             Cookies.set('chatpitoken', token);
 
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            originalConfig.headers.Authorization = `Bearer ${token}`;
 
-            return api(originalConfig);
+            failedRequestsQueue.forEach(request => request.onSuccess(token));
+            failedRequestsQueue = [];
           })
-          .catch(() => {
+          .catch(err => {
+            failedRequestsQueue.forEach(request => request.onFailure(err));
+            failedRequestsQueue = [];
+
             signOut();
-            return Promise.reject(error);
           })
           .finally(() => {
             isRefreshing = false;
           });
       }
-      return Promise.reject(error);
+
+      return new Promise((resolve, reject) => {
+        failedRequestsQueue.push({
+          onSuccess: (token: string) => {
+            originalConfig.headers.Authorization = `Bearer ${token}`;
+
+            resolve(api(originalConfig));
+          },
+          onFailure: (err: AxiosError) => {
+            reject(err);
+          },
+        });
+      });
     }
     return Promise.reject(error);
   },
 );
+
 export default api;
