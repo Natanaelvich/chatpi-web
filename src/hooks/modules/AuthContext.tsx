@@ -1,5 +1,11 @@
 import Router from 'next/router';
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  useEffect,
+} from 'react';
 import Cookies from 'js-cookie';
 import api from '../../services/api';
 
@@ -41,6 +47,20 @@ const AuthProvider: React.FC = ({ children }) => {
     }
     return {} as AuthState;
   });
+
+  const getMe = useCallback(async () => {
+    const response = await api.get('profile');
+
+    const user = response.data;
+
+    Cookies.set('chatpiuser', JSON.stringify(user));
+
+    setData({ user });
+  }, []);
+
+  useEffect(() => {
+    getMe();
+  }, [getMe]);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
