@@ -20,7 +20,6 @@ import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
 import { useChat } from '@/hooks/modules/ChatContext';
 import api from '@/services/api';
-import { urls } from '../constants';
 import { Container, Wrapper } from '../styles/auth/styles';
 
 export interface MessageProps {
@@ -85,10 +84,7 @@ function ChatHome() {
 
           <Profile>
             <img
-              src={
-                user?.avatar_url ||
-                `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
-              }
+              src={user?.avatar_url || 'profile_avatar_placeholder.png'}
               alt={user?.name}
             />
             <div>
@@ -124,8 +120,7 @@ function ChatHome() {
                 </div>
                 <img
                   src={
-                    chatActivity?.avatar_url ||
-                    `${urls[process.env.NODE_ENV]}/myAvatars/${chatActivity.id}`
+                    chatActivity?.avatar_url || 'profile_avatar_placeholder.png'
                   }
                   alt={chatActivity.name}
                   width="40"

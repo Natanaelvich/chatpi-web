@@ -4,7 +4,6 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import { urls } from '@/constants';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
@@ -162,10 +161,7 @@ function Profile() {
           onSubmit={handleSubmit}
         >
           <AvatarInput
-            bg={
-              user?.avatar_url ||
-              `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`
-            }
+            bg={user?.avatar_url || 'profile_avatar_placeholder.png'}
           >
             <div />
             <label htmlFor="avatar">

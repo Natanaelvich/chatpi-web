@@ -9,9 +9,7 @@ import React, {
 } from 'react';
 import io from 'socket.io-client';
 import { urls } from '@/constants';
-import api from '@/services/api';
 import { useAuth } from './AuthContext';
-import { useToast } from './ToastContext';
 
 interface ChatContextData {
   sendMessage: (e: FormEvent) => any;
@@ -139,7 +137,7 @@ const ChatProvider: React.FC = ({ children }) => {
         url: `https://www.chatpi.com/Chat/${user?.id}`,
         largeIcon:
           user?.avatar_url ||
-          `${urls[process.env.NODE_ENV]}/myAvatars/${user?.id}`,
+          `https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`,
       };
       if (chatActivity) {
         socket.emit('message', JSON.stringify(messageTemp));

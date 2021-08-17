@@ -1,4 +1,3 @@
-import { urls } from '@/constants';
 import { useAuth } from '@/hooks/modules/AuthContext';
 import { useChat } from '@/hooks/modules/ChatContext';
 import React from 'react';
@@ -70,10 +69,7 @@ const ChatList: React.FC<ChatProps> = ({ chatShow }) => {
                 >
                   <AvatarContainer>
                     <img
-                      src={
-                        u?.avatar_url ||
-                        `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
-                      }
+                      src={u?.avatar_url || 'profile_avatar_placeholder.png'}
                       alt={u.name}
                       width="40"
                       height="40"
@@ -118,10 +114,7 @@ const ChatList: React.FC<ChatProps> = ({ chatShow }) => {
             >
               <AvatarContainer>
                 <img
-                  src={
-                    u?.avatar_url ||
-                    `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
-                  }
+                  src={u?.avatar_url || 'profile_avatar_placeholder.png'}
                   alt={u.name}
                   width="40"
                   height="40"
@@ -161,10 +154,7 @@ const ChatList: React.FC<ChatProps> = ({ chatShow }) => {
             >
               <AvatarContainer>
                 <img
-                  src={
-                    u?.avatar_url ||
-                    `${urls[process.env.NODE_ENV]}/myAvatars/${u.id}`
-                  }
+                  src={u?.avatar_url || 'profile_avatar_placeholder.png'}
                   alt={u.name}
                   width="40"
                   height="40"
