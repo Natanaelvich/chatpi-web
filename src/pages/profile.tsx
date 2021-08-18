@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Seo from '@/components/Seo';
 import withAuth from '@/utils/withAuth';
+import ModalImage from 'react-modal-image';
 import api from '../services/api';
 
 import { useToast } from '../hooks/modules/ToastContext';
@@ -156,7 +157,6 @@ function Profile() {
           </Link>
         </div>
       </header>
-
       <Content>
         <Form
           ref={formRef}
@@ -169,7 +169,14 @@ function Profile() {
           <AvatarInput
             bg={user?.avatar_url || 'profile_avatar_placeholder.png'}
           >
-            <div />
+            <ModalImage
+              small={user?.avatar_url}
+              large={user?.avatar_url}
+              alt={user.name}
+              className="profile-image"
+              hideDownload
+              hideZoom
+            />
             <label htmlFor="avatar">
               <FiCamera />
 

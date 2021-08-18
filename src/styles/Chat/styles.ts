@@ -37,7 +37,9 @@ export const HeaderChat = styled.div`
       margin-right: 20px;
     }
 
-    img {
+    .profile-image {
+      width: 40px;
+      height: 40px;
       border-radius: 20px;
     }
   }
@@ -165,6 +167,7 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   margin-left: 80px;
+  cursor: pointer;
   img {
     width: 46px;
     height: 46px;

@@ -66,13 +66,12 @@ export const AvatarInput = styled.div<AvatarInputProps>`
   margin-bottom: 32px;
   position: relative;
   align-self: center;
-  div {
+
+  .profile-image {
     border-radius: 50%;
     width: 186px;
     height: 186px;
-    background-image: url(${props => props.bg});
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: red;
   }
   label {
     position: absolute;

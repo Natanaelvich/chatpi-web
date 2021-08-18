@@ -2,6 +2,7 @@ import ChatList from '@/components/ChatList';
 import { useAuth } from '@/hooks/modules/AuthContext';
 import { AiOutlineSend } from 'react-icons/ai';
 import { IoMdArrowBack } from 'react-icons/io';
+import ModalImage from 'react-modal-image';
 import {
   Chat,
   Messages,
@@ -82,20 +83,20 @@ function ChatHome() {
         <HeaderContent>
           <img src="/Logo.png" alt="Chat PI" width={80} height={77} />
 
-          <Profile>
-            <img
-              src={user?.avatar_url || 'profile_avatar_placeholder.png'}
-              alt={user?.name}
-            />
-            <div>
-              <span>Bem-vindo,</span>
-              <Link href="profile">
+          <Link href="profile">
+            <Profile>
+              <img
+                src={user?.avatar_url || 'profile_avatar_placeholder.png'}
+                alt={user?.name}
+              />
+              <div>
+                <span>Bem-vindo,</span>
                 <a>
                   <strong>{user?.name}</strong>
                 </a>
-              </Link>
-            </div>
-          </Profile>
+              </div>
+            </Profile>
+          </Link>
 
           <button type="button" aria-label="Sair" onClick={signOut}>
             <FiPower color="#fff" size={21} />
@@ -118,13 +119,16 @@ function ChatHome() {
                     <small>Online</small>
                   )}
                 </div>
-                <img
-                  src={
+                <ModalImage
+                  small={
                     chatActivity?.avatar_url || 'profile_avatar_placeholder.png'
                   }
-                  alt={chatActivity.name}
-                  width="40"
-                  height="40"
+                  large={
+                    chatActivity?.avatar_url || 'profile_avatar_placeholder.png'
+                  }
+                  className="profile-image"
+                  hideDownload
+                  hideZoom
                 />
               </section>
             </HeaderChat>
