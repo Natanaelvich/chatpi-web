@@ -25,7 +25,7 @@ api.interceptors.response.use(
       if (!isRefreshing) {
         isRefreshing = true;
 
-        return api
+        api
           .post(`sessions/refresh-token?token=${chatpirefreshtoken}`)
           .then(response => {
             const { token, refresh_token } = response.data;
