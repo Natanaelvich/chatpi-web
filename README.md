@@ -30,6 +30,7 @@
 - [ReactJS](https://github.com/facebook/react) is used for UI.
 - [NextJS](https://nextjs.org/)The React Frameworkfor Production
 - [Typecript](https://www.typescriptlang.org/) TypeScript extends JavaScript by adding types.
+- [SocketIO](https://socket.io/) For Connection in real time.
 
 ## License
 
