@@ -59,6 +59,35 @@ export const Content = styled.div`
     input[name='old_password'] {
       margin-top: 24px;
     }
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      label {
+        font-size: 21px;
+        input {
+          margin-left: 12px;
+        }
+      }
+    }
+    select {
+      margin-top: 12px;
+      width: 100%;
+      border: 1px solid #777;
+      border-radius: 0.25em;
+      padding: 0.39em 0.5em;
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1.1;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      option {
+        background-color: #fff;
+        color: #333333;
+      }
+    }
   }
 `;
 

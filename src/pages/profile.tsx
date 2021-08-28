@@ -39,6 +39,9 @@ function Profile() {
 
   const [loading, setLoading] = useState(0);
 
+  const [attendant, setAttendant] = useState(false);
+  const [attendantType, setAttendantAtype] = useState('');
+
   const { user, updateUser } = useAuth();
 
   const handleSubmit = useCallback(
@@ -46,6 +49,12 @@ function Profile() {
       try {
         setLoading(1);
         formRef.current?.setErrors({});
+
+        if (attendant && !attendantType) {
+          alert('Escolha um tipo de atendente');
+
+          return;
+        }
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
@@ -102,6 +111,7 @@ function Profile() {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);
 
+          console.log(errors);
           formRef.current?.setErrors(errors);
 
           return;
@@ -116,7 +126,7 @@ function Profile() {
         setLoading(0);
       }
     },
-    [addToast, router, updateUser],
+    [addToast, router, updateUser, attendant, attendantType],
   );
 
   const handleAvatarChange = useCallback(
@@ -165,6 +175,7 @@ function Profile() {
             email: user?.email,
           }}
           onSubmit={handleSubmit}
+          autoComplete="off"
         >
           <AvatarInput
             bg={user?.avatar_url || 'profile_avatar_placeholder.png'}
@@ -194,6 +205,9 @@ function Profile() {
             icon={FiLock}
             type="password"
             placeholder="Senha atual"
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
           />
 
           <Input
@@ -201,6 +215,9 @@ function Profile() {
             icon={FiLock}
             type="password"
             placeholder="Nova senha"
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
           />
 
           <Input
@@ -208,7 +225,34 @@ function Profile() {
             icon={FiLock}
             type="password"
             placeholder="Confirmar senha"
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
           />
+
+          <div>
+            <label htmlFor="attendant">
+              Ser um atendente
+              <input
+                checked={attendant}
+                onChange={e => setAttendant(e.target.checked)}
+                type="checkbox"
+                name="attendant"
+              />
+            </label>
+          </div>
+
+          {attendant && (
+            <select
+              onChange={e => setAttendantAtype(e.target.value)}
+              value={attendantType}
+              name="attendantType"
+            >
+              <option value="">Selecione um tipo</option>
+              <option value="enf">Enfermeiro(a)</option>
+              <option value="psic">Psicólogo(a)</option>
+            </select>
+          )}
 
           <Button loading={loading} type="submit">
             Confirmar mudanças
