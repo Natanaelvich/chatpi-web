@@ -95,10 +95,18 @@ function Profile() {
             : {}),
         };
 
-        const response = await api.put('/profile/update', formData);
+        const responseUpdateUser = await api.put('/profile/update', formData);
 
-        updateUser(response.data);
+        updateUser(responseUpdateUser.data);
 
+        if (attendant && attendantType) {
+          const responseUptadeClerkUSer = await api.put(
+            '/profile/update/clerk',
+            { clerk: attendantType },
+          );
+
+          updateUser(responseUptadeClerkUSer.data);
+        }
         router.push('/chat');
 
         addToast({
@@ -111,7 +119,6 @@ function Profile() {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);
 
-          console.log(errors);
           formRef.current?.setErrors(errors);
 
           return;
@@ -173,16 +180,15 @@ function Profile() {
           initialData={{
             name: user?.name,
             email: user?.email,
+            old_password: '',
           }}
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-          <AvatarInput
-            bg={user?.avatar_url || 'profile_avatar_placeholder.png'}
-          >
+          <AvatarInput>
             <ModalImage
-              small={user?.avatar_url}
-              large={user?.avatar_url}
+              small={user?.avatar_url || 'profile_avatar_placeholder.png'}
+              large={user?.avatar_url || 'profile_avatar_placeholder.png'}
               alt={user.name}
               className="profile-image"
               hideDownload
@@ -199,11 +205,11 @@ function Profile() {
           <Input name="name" icon={FiUser} placeholder="Nome" />
           <Input name="email" icon={FiMail} placeholder="E-mail" />
 
+          <h1>Atualizar Senha (Opcional)</h1>
           <Input
-            containerStyle={{ marginTop: 24 }}
             name="old_password"
             icon={FiLock}
-            type="password"
+            // type="password"
             placeholder="Senha atual"
             autoComplete="off"
             autoCapitalize="off"
@@ -213,7 +219,7 @@ function Profile() {
           <Input
             name="password"
             icon={FiLock}
-            type="password"
+            // type="password"
             placeholder="Nova senha"
             autoComplete="off"
             autoCapitalize="off"
@@ -223,7 +229,7 @@ function Profile() {
           <Input
             name="password_confirmation"
             icon={FiLock}
-            type="password"
+            // type="password"
             placeholder="Confirmar senha"
             autoComplete="off"
             autoCapitalize="off"
@@ -234,7 +240,7 @@ function Profile() {
             <label htmlFor="attendant">
               Ser um atendente
               <input
-                checked={attendant}
+                checked={attendant || !!user.clerk}
                 onChange={e => setAttendant(e.target.checked)}
                 type="checkbox"
                 name="attendant"
@@ -242,10 +248,10 @@ function Profile() {
             </label>
           </div>
 
-          {attendant && (
+          {(attendant || user.clerk) && (
             <select
               onChange={e => setAttendantAtype(e.target.value)}
-              value={attendantType}
+              value={attendantType || user.clerk}
               name="attendantType"
             >
               <option value="">Selecione um tipo</option>
