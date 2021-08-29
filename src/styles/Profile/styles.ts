@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
-interface AvatarInputProps {
-  bg: string;
-}
-
 export const Container = styled.div`
-  flex: 1;
   overflow: auto;
   background: linear-gradient(270deg, #3f3a79 27.66%, #d56065 98.55%);
+  height: 100vh;
+  width: 100vw;
 
   > header {
     height: 144px;
@@ -42,9 +39,10 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     h1 {
-      margin-bottom: 24px;
       font-size: 20px;
       text-align: left;
+      margin-top: 24px;
+      margin-bottom: 12px;
     }
     a {
       color: #f4ede8;
@@ -55,9 +53,6 @@ export const Content = styled.div`
       &:hover {
         color: ${shade(0.2, '#f4ede8')};
       }
-    }
-    input[name='old_password'] {
-      margin-top: 24px;
     }
 
     > div {
@@ -91,7 +86,7 @@ export const Content = styled.div`
   }
 `;
 
-export const AvatarInput = styled.div<AvatarInputProps>`
+export const AvatarInput = styled.div`
   margin-bottom: 32px;
   position: relative;
   align-self: center;
