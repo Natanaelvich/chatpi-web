@@ -75,9 +75,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user, refresh_token } = response.data;
 
-    Cookies.set('chatpirefreshtoken', String(refresh_token));
-    Cookies.set('chatpitoken', String(token));
-    Cookies.set('chatpiuser', JSON.stringify(user));
+    Cookies.set('chatpirefreshtoken', refresh_token, { expires: 7 });
+    Cookies.set('chatpitoken', token, { expires: 7 });
+    Cookies.set('chatpiuser', JSON.stringify(user), { expires: 7 });
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
     setData({ user });

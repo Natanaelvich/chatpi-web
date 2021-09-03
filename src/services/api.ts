@@ -30,8 +30,8 @@ api.interceptors.response.use(
           .then(response => {
             const { token, refresh_token } = response.data;
 
-            Cookies.set('chatpirefreshtoken', refresh_token);
-            Cookies.set('chatpitoken', token);
+            Cookies.set('chatpirefreshtoken', refresh_token, { expires: 7 });
+            Cookies.set('chatpitoken', token, { expires: 7 });
 
             api.defaults.headers.Authorization = `Bearer ${token}`;
 
