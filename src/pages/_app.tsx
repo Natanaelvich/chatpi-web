@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
       <Globalstyles />
       <Component {...pageProps} />
       <NextNprogress
-        color="#f231a5"
+        color="#3f3a79"
         startPosition={0.3}
         stopDelayMs={200}
         height={3}
