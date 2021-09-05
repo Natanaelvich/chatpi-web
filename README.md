@@ -1,6 +1,6 @@
 <h1 align='center'> Chat PI </h1>
 
-### A chat that connects people to health professionals, made with Nextjs ⚡️
+### A chat that connects people to health professionals, made with Nextjs ⚡️ <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"></code>
 
 ---
 
